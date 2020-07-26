@@ -17,6 +17,7 @@
 #include "../imgui/imgui.h"
 #include "../imgui/dx9/imgui_impl_dx9.h"
 #include "../imgui/imgui_internal.h"
+#include "font.hpp"
 
 extern IDirect3DStateBlock9* state_block;
 
@@ -107,6 +108,7 @@ namespace function {
 		void apply_fonts( ) {
 			ImGui::CreateContext( );
 
+			Main = ImGui::GetIO( ).Fonts->AddFontFromMemoryCompressedTTF( SmallestPixel_compressed_data, SmallestPixel_compressed_size, 12.0f );
 			Main = ImGui::GetIO( ).Fonts->AddFontFromFileTTF( "C:\\Windows\\Fonts\\Tahoma.ttf", 14 );
 			MainCaps = ImGui::GetIO( ).Fonts->AddFontFromFileTTF( "C:\\Windows\\Fonts\\segoeuil.ttf", 24 );
 			Menu = ImGui::GetIO( ).Fonts->AddFontFromFileTTF( "C:\\Windows\\Fonts\\Verdana.ttf", 12 );
