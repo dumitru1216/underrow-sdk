@@ -13,8 +13,8 @@ Vector C_BaseEntity::get_hitbox_position(int Hitbox, matrix3x4_t *Matrix, float 
 	if (hitbox)
 	{
 		Vector vMin, vMax, vCenter, sCenter;
-		g_Math.VectorTransform(hitbox->min, Matrix[hitbox->bone], vMin);
-		g_Math.VectorTransform(hitbox->max, Matrix[hitbox->bone], vMax);
+		math.VectorTransform(hitbox->min, Matrix[hitbox->bone], vMin);
+		math.VectorTransform(hitbox->max, Matrix[hitbox->bone], vMax);
 		vCenter = (vMin + vMax) * 0.5;
 
 		*Radius = hitbox->radius;
@@ -34,8 +34,8 @@ Vector C_BaseEntity::get_hitbox_position(int Hitbox, matrix3x4_t *Matrix) // any
 	if (hitbox)
 	{
 		Vector vMin, vMax, vCenter, sCenter;
-		g_Math.VectorTransform(hitbox->min, Matrix[hitbox->bone], vMin);
-		g_Math.VectorTransform(hitbox->max, Matrix[hitbox->bone], vMax);
+		math.VectorTransform(hitbox->min, Matrix[hitbox->bone], vMin);
+		math.VectorTransform(hitbox->max, Matrix[hitbox->bone], vMax);
 		vCenter = (vMin + vMax) * 0.5;
 
 		return vCenter;

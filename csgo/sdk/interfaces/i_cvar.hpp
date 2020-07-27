@@ -130,4 +130,4 @@ public:
 	}
 };
 
-extern ICVar* g_pCvar;
+extern ICVar* cvar;

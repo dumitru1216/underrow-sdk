@@ -1,10 +1,8 @@
 #include "sdk_math.hpp"
 
-Math g_Math;
+Math math;
 
-//not taking credit for any of this math
-
-void Math::VectorAngles(const Vector &vecForward, Vector &vecAngles)
+void Math::vector_angles(const Vector &vecForward, Vector &vecAngles)
 {
 	Vector vecView;
 	if (vecForward[1] == 0.f && vecForward[0] == 0.f)
@@ -29,7 +27,7 @@ void Math::VectorAngles(const Vector &vecForward, Vector &vecAngles)
 	vecAngles[2] = 0.f;
 }
 
-void Math::VectorAngles(const Vector& forward, Vector& up, Vector& angles) {
+void Math::vector_angles(const Vector& forward, Vector& up, Vector& angles) {
 	Vector left = CrossProduct(up, forward);
 	left.NormalizeInPlace();
 
@@ -49,7 +47,7 @@ void Math::VectorAngles(const Vector& forward, Vector& up, Vector& angles) {
 	}
 }
 
-Vector Math::CalcAngle(const Vector& vecSource, const Vector& vecDestination)
+Vector Math::calc_angle(const Vector& vecSource, const Vector& vecDestination)
 {
 	Vector qAngles;
 	Vector delta = Vector((vecSource[0] - vecDestination[0]), (vecSource[1] - vecDestination[1]), (vecSource[2] - vecDestination[2]));
@@ -85,7 +83,7 @@ vec_t Math::VectorNormalize(Vector& v)
 	return l;
 }
 
-void Math::AngleVectors(const Vector &angles, Vector *forward)
+void Math::angle_vectors(const Vector &angles, Vector *forward)
 {
 	Assert(s_bMathlibInitialized);
 	Assert(forward);
@@ -103,7 +101,7 @@ void Math::AngleVectors(const Vector &angles, Vector *forward)
 	forward->z = -sp;
 }
 
-void Math::NormalizeAngles(Vector& angles)
+void Math::normalize_angles(Vector& angles)
 {
 	for (auto i = 0; i < 3; i++) {
 		while (angles[i] < -180.0f) angles[i] += 360.0f;
@@ -127,13 +125,13 @@ void sin_cos(float radian, float* sin, float* cos)
 	*cos = std::cos(radian);
 }
 
-void Math::AngleVectors(const Vector& angles, Vector* forward, Vector* right, Vector* up)
+void Math::angle_vectors(const Vector& angles, Vector* forward, Vector* right, Vector* up)
 {
 	float sp, sy, sr, cp, cy, cr;
 
-	sin_cos(GRD_TO_BOG(angles.x), &sp, &cp);
-	sin_cos(GRD_TO_BOG(angles.y), &sy, &cy);
-	sin_cos(GRD_TO_BOG(angles.z), &sr, &cr);
+	sin_cos(grd_to_bog(angles.x), &sp, &cp);
+	sin_cos( grd_to_bog(angles.y), &sy, &cy);
+	sin_cos( grd_to_bog(angles.z), &sr, &cr);
 
 	if (forward != nullptr)
 	{
@@ -164,7 +162,7 @@ void Math::RandomSeed(int seed)
 	random_seed(seed);
 }
 
-float Math::RandomFloat(float min, float max)
+float Math::random_float(float min, float max)
 {
 	static auto random_float = reinterpret_cast<float(*)(float, float)>(GetProcAddress(GetModuleHandleA("vstdlib.dll"), "RandomFloat"));
 
@@ -188,7 +186,7 @@ void Math::ClampAngles(Vector &angles) {
 bool Math::Clamp(Vector &angles)
 {
 	Vector a = angles;
-	NormalizeAngles(a);
+	normalize_angles(a);
 	ClampAngles(a);
 
 	if (isnan(a.x) || isinf(a.x) ||
@@ -202,7 +200,7 @@ bool Math::Clamp(Vector &angles)
 	}	
 }
 
-float Math::GRD_TO_BOG(float GRD) {
+float Math::grd_to_bog(float GRD) {
 	return (M_PI / 180) * GRD;
 }
 

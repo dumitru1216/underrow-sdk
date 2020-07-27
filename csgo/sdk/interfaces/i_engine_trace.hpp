@@ -309,4 +309,4 @@ public:
 	virtual void	TraceRay(const C_Ray &ray, unsigned int fMask, ITraceFilter *pTraceFilter, C_Trace *pTrace) = 0;
 };
 
-extern IEngineTrace* g_pTrace;
+extern IEngineTrace* trace;

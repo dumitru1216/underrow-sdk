@@ -85,4 +85,4 @@ public:
 	virtual void	GetPhysicsParameters(int surfaceDataIndex, surfacephysicsparams_t *pParamsOut) const = 0;
 };
 
-extern IPhysicsSurfaceProps* csgo_surfaceData;
+extern IPhysicsSurfaceProps* surface_props_data;

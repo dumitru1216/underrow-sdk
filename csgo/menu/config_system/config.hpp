@@ -20,21 +20,26 @@ public:
 	{
 		bool enable_aimbot;
 		int Hitchance;
-		int HitchanceValue;
-		int Mindmg;
+		int hitchance_value;
+		int min_damage;
 		bool Resolver;
-		int BodyScale;
-		int HeadScale;
-		bool MultiPoint;
-		bool DelayShot;
+		int body_scale;
+		int head_scale;
+		bool multi_point;
+		bool delay_shot;
+		int hitscan_type;
 		bool IgnoreLimbs;
-		bool Autostop;
+		bool auto_stop;
 		bool FixShotPitch;
 		bool PosBacktrack;
 		bool ShotBacktrack;
-		bool BaimLethal;
-		bool BaimPitch;
-		bool BaimInAir;
+
+		bool head;
+		bool body;
+		bool arms;
+		bool neck;
+		bool legs;
+
 
 		bool Antiaim;
 		bool DesyncAngle;

@@ -43,7 +43,7 @@ namespace function {
 				ImGui::EndChild( );
 				ImGui::SameLine( );
 				ImGui::BeginChild( "###name", ImVec2( 0, 30 ), true, ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse ); {
-					ImGui::Text( "underrow | beta 0.08" );
+					ImGui::Text( "underrow | beta 0.11" );
 				}
 				ImGui::EndChild( );
 
@@ -74,17 +74,38 @@ namespace function {
 					case 1: {
 						/* doing the 2 childs where will be features */
 						ImGui::BeginChild( "###5", ImVec2( 290, 380 / 2 ), true ); {
+							ImGui::Checkbox( "enable aimbot", &variable.Config.enable_aimbot );
+							ImGui::Checkbox( "automatic stop", &variable.Config.auto_stop );
 
+							
 						}
 						ImGui::EndChild( );
 						ImGui::SameLine( );
 						ImGui::BeginChild( "###6", ImVec2( 0, 380 / 2 ), true ); {
-
+							ImGui::SliderInt( "hitchance", &variable.Config.hitchance_value, 0, 100, "%.f%%" );
+							ImGui::SliderInt( "minimum damage", &variable.Config.min_damage, 0, 100, "%.f%%" );
 						}
 						ImGui::EndChild( );
 						ImGui::SetCursorPosY( 380 / 2 + 50 );
 						ImGui::BeginChild( "###7", ImVec2( 290, 0 ), true ); {
-
+							const char* hitscan_type[ ] = { "head only", "body only", "full hitscan" };
+							ImGui::Combo( "hitscan mode", &variable.Config.hitscan_type, hitscan_type, IM_ARRAYSIZE( hitscan_type ) );
+							if ( variable.Config.hitscan_type == 2 ) {
+								ImGui::Checkbox( "multipoint", &variable.Config.multi_point );
+								if ( variable.Config.multi_point ) {
+									ImGui::Checkbox( "head", &variable.Config.head );
+									ImGui::SameLine( );
+									ImGui::Checkbox( "body", &variable.Config.body );
+									ImGui::SameLine( );
+									ImGui::Checkbox( "neck", &variable.Config.neck );
+									ImGui::Checkbox( "legs", &variable.Config.legs );
+									ImGui::SameLine( );
+									ImGui::Checkbox( "arms", &variable.Config.arms );
+								}
+								ImGui::TextColored( ImColor( 255, 0, 0, 255 ), "multipoint scale" );
+								ImGui::SliderInt( "head scale", &variable.Config.head_scale, 0, 100, "%.f%%" );
+								ImGui::SliderInt( "body scale", &variable.Config.body_scale, 0, 100, "%.f%%" );
+							}
 						}
 						ImGui::EndChild( );
 						ImGui::SameLine( );

@@ -78,6 +78,9 @@
     <ClCompile Include="csgo\features\prediction_system\prediction_system.cpp" />
     <ClCompile Include="csgo\features\movement_system\movement_system.cpp" />
     <ClCompile Include="csgo\features\visuals\player_esp\player_esp.cpp" />
+    <ClCompile Include="csgo\features\autowall\autowall.cpp" />
+    <ClCompile Include="csgo\features\lag_comp_system\lag_comp_system.cpp" />
+    <ClCompile Include="csgo\features\ragebot\ragebot.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="csgo\menu\external_include.hpp">
@@ -235,5 +238,8 @@
     <ClInclude Include="csgo\features\includes.hpp" />
     <ClInclude Include="csgo\features\movement_system\movement_system.hpp" />
     <ClInclude Include="csgo\features\visuals\player_esp\player_esp.hpp" />
+    <ClInclude Include="csgo\features\autowall\autowall.hpp" />
+    <ClInclude Include="csgo\features\lag_comp_system\lag_comp_system.hpp" />
+    <ClInclude Include="csgo\features\ragebot\ragebot.hpp" />
   </ItemGroup>
 </Project>

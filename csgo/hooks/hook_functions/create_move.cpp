@@ -27,14 +27,14 @@ bool __fastcall hooks::create_move( IClientMode* thisptr, void* edx, float sampl
 
 	/* run prediction */ 
 	function::prediction_system::start_prediction( );
-
+	function::c_ragebot.setup( );
 	
 	/* end prediction */ 
 	function::prediction_system::end_prediction( );
-
+	
 	/* clamp angles */
 	function::c_movement.setup_movement( csgo::m_cmd, csgo::m_original_view );
-	g_Math.Clamp( csgo::m_cmd->viewangles );
+	math.Clamp( csgo::m_cmd->viewangles );
 
 	/* setup angles */
 	if (csgo::m_send_packet)
