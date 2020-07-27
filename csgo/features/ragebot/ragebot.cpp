@@ -21,7 +21,7 @@ namespace function {
 		Vector direction;
 		Vector real_view;
 		math.vector_angles( velocity, direction );
-		csgo_engine->GetViewAngles( real_view );
+		engine->GetViewAngles( real_view );
 		direction.y = real_view.y - direction.y;
 
 		Vector forward;
@@ -238,7 +238,7 @@ namespace function {
 	/* setup */
 	void ragebot::setup( ) {
 		/* variables & calls */
-		if ( !csgo_engine->is_in_game( ) ) return;
+		if ( !engine->is_in_game( ) ) return;
 
 		Vector Aimpoint = { 0,0,0 };
 		C_BaseEntity* Target = nullptr;
@@ -246,7 +246,7 @@ namespace function {
 		int tempDmg = 0;
 		static bool shot = false;
 
-		for ( int i = 1; i <= csgo_engine->GetMaxClients( ); ++i ) {
+		for ( int i = 1; i <= engine->GetMaxClients( ); ++i ) {
 			C_BaseEntity* pPlayerEntity = entity_list->GetClientEntity( i );
 
 			if ( !pPlayerEntity || !pPlayerEntity->is_alive( ) || pPlayerEntity->IsDormant( ) ) {
@@ -283,7 +283,7 @@ namespace function {
 			return;
 		}
 
-		float flServerTime = csgo::m_local->get_tick_base( ) * globalvars->intervalPerTick;
+		float flServerTime = csgo::m_local->get_tick_base( ) * global_vars->intervalPerTick;
 		bool canShoot = ( csgo::m_local->get_active_weapon( )->get_next_primary_attack( ) <= flServerTime );
 		if ( Target ) {
 			csgo::m_target_index = targetID;

@@ -125,7 +125,7 @@ namespace function {
 	/* trace to exit */
 	bool trace_to_exit_alt( Vector& end, C_Trace& tr, Vector start, Vector vEnd, C_Trace* trace ) {
 		typedef bool( __fastcall* TraceToExitFn )( Vector&, C_Trace&, float, float, float, float, float, float, C_Trace* );
-		static TraceToExitFn o_trace_to_exit = ( TraceToExitFn )Utils::FindSignature( "client.dll", "55 8B EC 83 EC 30 F3 0F 10 75" );
+		static TraceToExitFn o_trace_to_exit = ( TraceToExitFn )Utils::find_signature( "client.dll", "55 8B EC 83 EC 30 F3 0F 10 75" );
 
 		if ( !o_trace_to_exit )
 			return false;

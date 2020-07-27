@@ -4,6 +4,7 @@
 #include "i_client_thinkable.hpp"
 #include "c_handle.hpp"
 
+class IClientRenderable;
 class IClientAlphaProperty;
 class C_BaseEntity;
 class IClientEntity;

@@ -7,7 +7,7 @@ void __fastcall hooks::override_view( void* ecx, void* edx, CViewSetup* pSetup )
 {
 	static auto o_overide_view = c_hooks.pClientModeHook->GetOriginal<override_view_t>( vtable_indexes::view );
 
-	if (csgo_engine->is_connected( ) && csgo_engine->is_in_game( )) {
+	if (engine->is_connected( ) && engine->is_in_game( )) {
 		if (!csgo::m_local )
 			return;
 

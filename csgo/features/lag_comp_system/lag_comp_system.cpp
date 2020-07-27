@@ -39,7 +39,7 @@ namespace function {
 
 	/* get valid tick */
 	bool lag_comp::valid_tick( int tick ) {
-		auto nci = csgo_engine->GetNetChannelInfo( );
+		auto nci = engine->GetNetChannelInfo( );
 
 		if ( !nci )
 			return false;

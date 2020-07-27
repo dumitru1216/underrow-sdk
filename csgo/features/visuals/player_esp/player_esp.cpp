@@ -36,7 +36,7 @@ namespace function {
 
 		/* screen size */
 		int screen_x, screen_y;
-		csgo_engine->get_screen_size( screen_x, screen_y );
+		engine->get_screen_size( screen_x, screen_y );
 
 		/* world to screen */
 		if ( Utils::world_to_screen( pos_3d, pos ) && Utils::world_to_screen( top_3d, top ) ) {
@@ -47,7 +47,7 @@ namespace function {
 			/* name esp */
 			if ( variable.Config.name_esp ) {
 				PlayerInfo_t ent_info;
-				if ( !csgo_engine->GetPlayerInfo( entity->EntIndex( ), &ent_info ) ) return;
+				if ( !engine->GetPlayerInfo( entity->EntIndex( ), &ent_info ) ) return;
 
 				std::string name = ent_info.szName;
 				csgo_surface->text( pos.x, top.y - 14, color_t( 255, 255, 255, alpha ), csgo::esp_font, true, name.c_str( ) );
@@ -73,6 +73,7 @@ namespace function {
 				int hp = height - ( ( height * enemy_hp ) / 100 );
 
 				/* intense math & black bar */
+				csgo_surface->line( ( pos.x - width / 2 ) - 6, top.y + hp, ( pos.x - width / 2 ) - 6, top.y + 100 - 1, color_t( 0, 0, 0, alpha / 2 - 20 ) );
 				csgo_surface->line( ( pos.x - width / 2 ) - 6, top.y + hp, ( pos.x - width / 2 ) - 6, top.y + height - 1, health_color );
 				csgo_surface->line( ( pos.x - width / 2 ) - 5, top.y + hp, ( pos.x - width / 2 ) - 5, top.y + height - 1, health_color );
 
@@ -105,7 +106,7 @@ namespace function {
 
 				/* matrix & setup bones */
 				matrix3x4_t matrix[ 128 ];
-				entity->SetupBones( matrix, 128, 256, globalvars->curtime );
+				entity->SetupBones( matrix, 128, 256, global_vars->curtime );
 
 				/* finish skeleton */
 				studiohdr_t* studio_hdr = model_info->GetStudiomodel( entity->GetModel( ) );
@@ -155,10 +156,10 @@ namespace function {
 	/* render */
 	void player_esp::setup( ) {
 		/* checks */
-		if ( !csgo::m_local || !csgo_engine->is_in_game( ) || !variable.Config.enable_esp )  return;
+		if ( !csgo::m_local || !engine->is_in_game( ) || !variable.Config.enable_esp )  return;
 		
 		/* setup */
-		for ( int i = 1; i <= globalvars->maxClients; i++ ) {
+		for ( int i = 1; i <= global_vars->maxClients; i++ ) {
 			/* checks */
 			auto entity = entity_list->GetClientEntity( i );
 			if ( !entity ) continue;

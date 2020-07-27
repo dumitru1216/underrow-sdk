@@ -40,7 +40,7 @@ namespace function {
 
 			ImGuiStyle& style = ImGui::GetStyle( );
 			style.Alpha = 1.0f;
-			style.WindowPadding = ImVec2( 5, 5 );
+			style.WindowPadding = ImVec2( 0, 0 );
 			style.WindowMinSize = ImVec2( 32, 32 );
 			style.WindowRounding = 0.0f;
 			style.WindowTitleAlign = ImVec2( 0.0f, 0.5f );
@@ -68,7 +68,7 @@ namespace function {
 			colors[ ImGuiCol_TextDisabled ] = ImVec4( 0.50f, 0.50f, 0.50f, 1.00f );
 			colors[ ImGuiCol_WindowBg ] = ImColor( 20, 20, 20, 255 );
 			colors[ ImGuiCol_PopupBg ] = ImVec4( 0.08f, 0.08f, 0.08f, 0.94f );
-			colors[ ImGuiCol_Border ] = ImColor( 62, 62, 62, 80 );
+			colors[ ImGuiCol_Border ] = ImColor( 62, 62, 62, 100 );
 			colors[ ImGuiCol_BorderShadow ] = ImVec4( 0.00f, 0.00f, 0.00f, 0.00f );
 			colors[ ImGuiCol_ChildWindowBg ] = ImColor( 30, 30, 30, 255 );
 			colors[ ImGuiCol_FrameBg ] = ImVec4( 0.22f, 0.22f, 0.22f, 1.0f );

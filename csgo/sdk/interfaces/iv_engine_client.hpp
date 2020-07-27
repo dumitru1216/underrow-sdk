@@ -338,4 +338,49 @@ public:
 		return DUMBNIGGERSLOL<Fn>(this, 78)(this);
 	}
 };
-extern IVEngineClient* csgo_engine;
+extern IVEngineClient* engine;
+
+class CClientState
+{
+public:
+    void force_full_update( ) {
+        *reinterpret_cast< int* >( std::uintptr_t( this ) + 0x174 ) = -1;
+    }
+
+    char pad_0000[ 156 ];             //0x0000
+    NetChannel* m_NetChannel;       //0x009C
+    uint32_t m_nChallengeNr;        //0x00A0
+    char pad_00A4[ 100 ];             //0x00A4
+    uint32_t m_nSignonState;        //0x0108
+    char pad_010C[ 8 ];               //0x010C
+    float m_flNextCmdTime;          //0x0114
+    uint32_t m_nServerCount;        //0x0118
+    uint32_t m_nCurrentSequence;    //0x011C
+    char pad_0120[ 8 ];               //0x0120
+    uint32_t m_nDeltaTick;          //0x0174
+    bool m_bPaused;                 //0x0178 pauses the game xD
+    char pad_017D[ 3 ];               //0x017D
+    uint32_t m_nViewEntity;         //0x0180
+    uint32_t m_nPlayerSlot;         //0x0184
+    char m_szLevelName[ 260 ];        //0x0188
+    char m_szLevelNameShort[ 80 ];    //0x028C
+    char m_szGroupName[ 80 ];         //0x02DC
+    char pad_032Ñ[ 92 ];              //0x032Ñ
+    uint32_t m_nMaxClients;         //0x0388
+    char pad_0314[ 18824 ];           //0x0314
+    float m_flLastServerTickTime;   //0x4C98
+    bool insimulation;              //0x4C9C
+    char pad_4C9D[ 3 ];               //0x4C9D
+    uint32_t oldtickcount;          //0x4CA0
+    float m_tickRemainder;          //0x4CA4
+    float m_frameTime;              //0x4CA8
+    uint32_t lastoutgoingcommand;        //0x4CAC
+    uint32_t chokedcommands;             //0x4CB0
+    uint32_t last_command_ack;           //0x4CB4
+    uint32_t command_ack;                //0x4CB8 does nothing
+    uint32_t m_nSoundSequence;           //0x4CBC
+    std::byte		pad8[ 0x50 ];				//0x4D38
+    Vector			angViewPoint;			//0x4D88
+    std::byte		pad9[ 0xD0 ];				//0x4D9A
+};
+extern CClientState* client_state;

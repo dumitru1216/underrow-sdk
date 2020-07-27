@@ -50,6 +50,9 @@ public:
         }
     }
 
+    Vector at( int i ) const { return Vector{ flMatVal[ 0 ][ i ], flMatVal[ 1 ][ i ], flMatVal[ 2 ][ i ] }; }
+    Vector GetOrigin( ) const { return at( 3 ); }
+
     float *operator[](int i) { return flMatVal[i]; }
     const float *operator[](int i) const { return flMatVal[i]; }
     float *Base() { return &flMatVal[0][0]; }

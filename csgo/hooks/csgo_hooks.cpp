@@ -29,7 +29,7 @@ void hooks::initialize() {
         c_hooks.pOriginalWNDProc = reinterpret_cast<WNDPROC>(SetWindowLongPtr(c_hooks.hCSGOWindow, GWLP_WNDPROC,
                                                                               reinterpret_cast<LONG_PTR>(c_hooks.WndProc)));
 
-	DWORD shaderapidx9 = **(DWORD * *)(Utils::FindSignature( "shaderapidx9.dll", "A1 ?? ?? ?? ?? 50 8B 08 FF 51 0C" ) + 1);
+	DWORD shaderapidx9 = **(DWORD * *)(Utils::find_signature( "shaderapidx9.dll", "A1 ?? ?? ?? ?? 50 8B 08 FF 51 0C" ) + 1);
 
     /* vmt_hooks */
 	c_hooks.pClientHook     = std::make_unique<VMTHook>(g_pClientDll);

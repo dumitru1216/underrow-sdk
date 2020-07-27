@@ -50,7 +50,7 @@ void C_BaseEntity::fix_setup_bones(matrix3x4_t *Matrix)
 	*(int*)((uintptr_t)this + 0x274) = 0;
 	Vector absOriginBackupLocal = this->get_abs_origin();
 	this->set_abs_origin(this->get_origin());
-	this->SetupBones(Matrix, 128, 0x00000100, globalvars->curtime);
+	this->SetupBones(Matrix, 128, 0x00000100, global_vars->curtime);
 	this->set_abs_origin(absOriginBackupLocal);
 	*(int*)((uintptr_t)this + 0x274) = Backup;
 }
@@ -68,7 +68,7 @@ void C_BaseEntity::set_abs_angles(Vector angles)
 void C_BaseEntity::set_abs_origin(Vector origin)
 {
 	using Fn = void(__thiscall*)(void*, const Vector &origin);
-	static Fn AbsOrigin = (Fn)Utils::FindSignature("client.dll", "55 8B EC 83 E4 F8 51 53 56 57 8B F1 E8");
+	static Fn AbsOrigin = (Fn)Utils::find_signature("client.dll", "55 8B EC 83 E4 F8 51 53 56 57 8B F1 E8");
 
 	AbsOrigin(this, origin);
 }
@@ -76,7 +76,7 @@ void C_BaseEntity::set_abs_origin(Vector origin)
 void C_BaseEntity::set_abs_velocity(Vector velocity) // i dont remember
 {
 	using Fn = void(__thiscall*)(void*, const Vector &velocity);
-	static Fn AbsVelocity = (Fn)Utils::FindSignature("client.dll", "55 8B EC 83 E4 F8 83 EC 0C 53 56 57 8B 7D 08 8B F1 F3");
+	static Fn AbsVelocity = (Fn)Utils::find_signature("client.dll", "55 8B EC 83 E4 F8 83 EC 0C 53 56 57 8B 7D 08 8B F1 F3");
 
 	AbsVelocity(this, velocity);
 }
@@ -195,4 +195,57 @@ float C_BaseEntity::fire_rate()
 bool C_BaseEntity::is_enemy()
 {
 	return this->get_team() != csgo::m_local->get_team();
+}
+
+CBasePlayerAnimState* C_BaseEntity::get_animation_state( )
+{
+	return *( CBasePlayerAnimState** )( ( DWORD )this + 0x3914 );
+}
+
+void C_BaseEntity::update_animation_state( CBasePlayerAnimState* state, Vector angle )
+{
+	static auto UpdateAnimState = Utils::find_signature(
+		"client.dll", "55 8B EC 83 E4 F8 83 EC 18 56 57 8B F9 F3 0F 11 54 24" );
+
+	if ( !UpdateAnimState )
+		return;
+
+	__asm {
+		push 0
+	}
+
+	__asm
+	{
+		mov ecx, state
+
+		movss xmm1, dword ptr[ angle + 4 ]
+		movss xmm2, dword ptr[ angle ]
+
+		call UpdateAnimState
+	}
+}
+
+void C_BaseEntity::reset_animation_state( CBasePlayerAnimState* state )
+{
+	using ResetAnimState_t = void( __thiscall* )( CBasePlayerAnimState* );
+	static auto ResetAnimState = ( ResetAnimState_t )Utils::find_signature( "client.dll", "56 6A 01 68 ? ? ? ? 8B F1" );
+	if ( !ResetAnimState )
+		return;
+
+	ResetAnimState( state );
+}
+
+void C_BaseEntity::create_animation_state( CBasePlayerAnimState* state )
+{
+	using CreateAnimState_t = void( __thiscall* )( CBasePlayerAnimState*, C_BaseEntity* );
+	static auto CreateAnimState = ( CreateAnimState_t )Utils::find_signature( "client.dll", "55 8B EC 56 8B F1 B9 ? ? ? ? C7 46" );
+	if ( !CreateAnimState )
+		return;
+
+	CreateAnimState( state, this );
+}
+
+void C_BaseEntity::invalidate_bone_cache( void ) {
+	static auto invalidate_bone_cache_fn = Utils::find_signature( "client.dll", "80 3D ?? ?? ?? ?? ?? 74 16 A1 ?? ?? ?? ?? 48 C7 81" );
+	reinterpret_cast< void( __fastcall* ) ( void* ) > ( invalidate_bone_cache_fn ) ( this );
 }

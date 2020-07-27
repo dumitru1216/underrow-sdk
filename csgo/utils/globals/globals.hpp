@@ -20,6 +20,9 @@ namespace csgo
 	extern bool m_lag_peek;
 	extern bool m_shot[ 65 ];
 	extern bool m_hit[ 65 ];
+	extern bool m_update[ 65 ];
+	extern bool m_allow_setup_bones;
+	extern bool m_got_fake_matrix;
 
 	/* ints */
 	extern int m_target_index;
@@ -34,6 +37,7 @@ namespace csgo
 	/* other */
     extern std::uintptr_t uRandomSeed;
 	extern in_use backup;
+	extern matrix3x4_t m_fake_matrix[ 128 ];
 
 	/* fonts */
 	extern DWORD esp_font;

@@ -5,6 +5,7 @@
 #include <ctime>
 #include <chrono>
 #include "../../sdk\interfaces\iv_engine_client.hpp"
+#include "../../sdk/other/data_map.hpp"
 
 #define INRANGE(x,a,b)   (x >= a && x <= b)
 #define GET_BYTE( x )    (GET_BITS(x[0]) << 4 | GET_BITS(x[1]))
@@ -25,7 +26,7 @@ public:
 		return (*(t**)class_pointer)[index];
 	}
 
-    static uintptr_t FindSignature(const char* szModule, const char* szSignature)
+    static uintptr_t find_signature(const char* szModule, const char* szSignature)
     {
         const char* pat = szSignature;
         DWORD firstMatch = 0;
@@ -59,6 +60,30 @@ public:
             }
         }
         return NULL;
+    }
+
+    static unsigned int find_in_datamap( datamap_t* pMap, const char* name ) {
+        while ( pMap ) {
+            for ( int i = 0; i < pMap->dataNumFields; i++ ) {
+                if ( pMap->dataDesc[ i ].fieldName == NULL )
+                    continue;
+
+                if ( strcmp( name, pMap->dataDesc[ i ].fieldName ) == 0 )
+                    return pMap->dataDesc[ i ].fieldOffset[ TD_OFFSET_NORMAL ];
+
+                if ( pMap->dataDesc[ i ].fieldType == FIELD_EMBEDDED ) {
+                    if ( pMap->dataDesc[ i ].td ) {
+                        unsigned int offset;
+
+                        if ( ( offset = find_in_datamap( pMap->dataDesc[ i ].td, name ) ) != 0 )
+                            return offset;
+                    }
+                }
+            }
+            pMap = pMap->baseMap;
+        }
+
+        return 0;
     }
 
 	static DWORD FindPattern(const char* module_name, const BYTE* mask, const char* mask_string)
@@ -150,7 +175,7 @@ public:
             static std::uintptr_t pViewMatrix;
             if ( !pViewMatrix )
             {
-                pViewMatrix = static_cast< std::uintptr_t >( Utils::FindSignature( "client.dll", "0F 10 05 ? ? ? ? 8D 85 ? ? ? ? B9" ) );
+                pViewMatrix = static_cast< std::uintptr_t >( Utils::find_signature( "client.dll", "0F 10 05 ? ? ? ? 8D 85 ? ? ? ? B9" ) );
                 pViewMatrix += 3;
                 pViewMatrix = *reinterpret_cast< std::uintptr_t* >( pViewMatrix );
                 pViewMatrix += 176;
@@ -179,7 +204,7 @@ public:
         if ( !screenTransform( ) )
         {
             int iScreenWidth, iScreenHeight;
-            csgo_engine->get_screen_size( iScreenWidth, iScreenHeight );
+            engine->get_screen_size( iScreenWidth, iScreenHeight );
 
             screen.x = ( iScreenWidth * 0.5f ) + ( screen.x * iScreenWidth ) * 0.5f;
             screen.y = ( iScreenHeight * 0.5f ) - ( screen.y * iScreenHeight ) * 0.5f;

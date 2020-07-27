@@ -2,7 +2,7 @@
 #include "../../hooks/csgo_hooks.hpp"
 
 /* dev function */
-IDirect3DDevice9* device = **( IDirect3DDevice9*** )( Utils::FindSignature( "shaderapidx9.dll", "A1 ?? ?? ?? ?? 50 8B 08 FF 51 0C" ) + 1 );
+IDirect3DDevice9* device = **( IDirect3DDevice9*** )( Utils::find_signature( "shaderapidx9.dll", "A1 ?? ?? ?? ?? 50 8B 08 FF 51 0C" ) + 1 );
 
 /* vertex */
 struct vtx_t {

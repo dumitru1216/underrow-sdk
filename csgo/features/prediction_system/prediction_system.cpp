@@ -19,8 +19,8 @@ namespace function {
 
 		/* predict_seed & player */
 		if ( !m_nPredictionRandomSeed || !m_pSetPredictionPlayer ) {
-			m_nPredictionRandomSeed = *reinterpret_cast< int** >( Utils::FindSignature( "client.dll", "8B 0D ? ? ? ? BA ? ? ? ? E8 ? ? ? ? 83 C4 04" ) + 2 );
-			m_pSetPredictionPlayer = *reinterpret_cast< int** >( Utils::FindSignature( "client.dll", "89 35 ? ? ? ? F3 0F 10 46" ) + 2 );
+			m_nPredictionRandomSeed = *reinterpret_cast< int** >( Utils::find_signature( "client.dll", "8B 0D ? ? ? ? BA ? ? ? ? E8 ? ? ? ? 83 C4 04" ) + 2 );
+			m_pSetPredictionPlayer = *reinterpret_cast< int** >( Utils::find_signature( "client.dll", "89 35 ? ? ? ? F3 0F 10 46" ) + 2 );
 		}
 
 		CMoveData data;
@@ -35,21 +35,21 @@ namespace function {
 		*reinterpret_cast< uint32_t* >( reinterpret_cast< uint32_t >( csgo::m_local ) + 0x326C ) = reinterpret_cast< uint32_t >( csgo::m_cmd ); // lol
 
 		/* run variable */
-		m_old_curtime = globalvars->curtime;
-		m_old_frametime = globalvars->frametime;
+		m_old_curtime = global_vars->curtime;
+		m_old_frametime = global_vars->frametime;
 
 		/* fix tick base */
 		csgo::uRandomSeed = *m_nPredictionRandomSeed;
-		globalvars->curtime = csgo::m_local->get_tick_base( ) * globalvars->intervalPerTick;
-		globalvars->frametime = globalvars->intervalPerTick;
+		global_vars->curtime = csgo::m_local->get_tick_base( ) * global_vars->intervalPerTick;
+		global_vars->frametime = global_vars->intervalPerTick;
 
 		/* fix movement tick */
 		g_pMovement->StartTrackPredictionErrors( csgo::m_local );
 
 		/* setup movement */
-		g_pPrediction->SetupMove( csgo::m_local, csgo::m_cmd, g_pMoveHelper, &data );
+		prediction->SetupMove( csgo::m_local, csgo::m_cmd, g_pMoveHelper, &data );
 		g_pMovement->ProcessMovement( csgo::m_local, &data );
-		g_pPrediction->FinishMove( csgo::m_local, csgo::m_cmd, &data );
+		prediction->FinishMove( csgo::m_local, csgo::m_cmd, &data );
 
 		/* fix weapon bug */
 		if ( csgo::m_local->get_active_weapon( ) )
@@ -73,8 +73,8 @@ namespace function {
 		}
 
 		/* restore cutime, frametime */
-		globalvars->curtime = m_old_curtime;
-		globalvars->frametime = m_old_frametime;
+		global_vars->curtime = m_old_curtime;
+		global_vars->frametime = m_old_frametime;
 
 		/* restore current command */
 		csgo::m_local->set_current_command( NULL );

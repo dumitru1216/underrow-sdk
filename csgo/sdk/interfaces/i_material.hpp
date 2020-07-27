@@ -510,4 +510,4 @@ public:
 
 };
 
-extern IMaterialSystem* g_pMaterialSys;
+extern IMaterialSystem* material_system;

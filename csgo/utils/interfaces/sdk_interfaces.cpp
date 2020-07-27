@@ -15,6 +15,7 @@
 #include "../../sdk\interfaces/c_model_render.hpp"
 #include "../../sdk\interfaces/i_material.hpp"
 #include "../../sdk\interfaces/iv_render_view.hpp"
+#include "../../sdk/interfaces/i_memory_alloc.hpp"
 
 #include <fstream>
 
@@ -28,11 +29,11 @@
 IBaseClientDLL*     g_pClientDll    = nullptr;
 IClientMode*        g_pClientMode   = nullptr;
 IClientEntityList*  entity_list   = nullptr;
-IVEngineClient*     csgo_engine      = nullptr;
-CPrediction*        g_pPrediction   = nullptr;
+IVEngineClient*     engine      = nullptr;
+CPrediction*        prediction   = nullptr;
 IGameMovement*      g_pMovement     = nullptr;
 IMoveHelper*        g_pMoveHelper   = nullptr;
-CGlobalVarsBase*    globalvars   = nullptr;
+Cglobal_varsBase*    global_vars   = nullptr;
 IGameEventManager*  g_pEventManager = nullptr;
 ISurface*           csgo_surface = nullptr;
 IEngineTrace*       trace        = nullptr;
@@ -41,8 +42,10 @@ ICVar*              cvar			= nullptr;
 IPanel*				g_pPanel		= nullptr;
 IVModelInfo*		model_info	= nullptr;
 CModelRender*       g_pModelRender  = nullptr;
-IMaterialSystem*    g_pMaterialSys  = nullptr;
+IMaterialSystem*    material_system  = nullptr;
 IVRenderView*       g_pRenderView   = nullptr;
+CClientState* client_state = nullptr;
+i_mem_alloc* memory_alloc = nullptr;
 
 namespace interfaces
 {
@@ -95,12 +98,12 @@ namespace interfaces
     {
         g_pClientDll    = FindClass<IBaseClientDLL>("client.dll", "VClient");
         g_pClientMode   = **reinterpret_cast<IClientMode***>    ((*reinterpret_cast<uintptr_t**>(g_pClientDll))[10] + 0x5u);  
-        globalvars   = **reinterpret_cast<CGlobalVarsBase***>((*reinterpret_cast<uintptr_t**>(g_pClientDll))[11]  + 10); 
+        global_vars   = **reinterpret_cast<Cglobal_varsBase***>((*reinterpret_cast<uintptr_t**>(g_pClientDll))[11]  + 10); 
         entity_list   = FindClass<IClientEntityList>("client.dll", "VClientEntityList");
-        csgo_engine       = FindClass<IVEngineClient>("engine.dll", "VEngineClient");
-        g_pPrediction   = FindClass<CPrediction>("client.dll", "VClientPrediction");
+        engine       = FindClass<IVEngineClient>("engine.dll", "VEngineClient");
+        prediction   = FindClass<CPrediction>("client.dll", "VClientPrediction");
         g_pMovement     = FindClass<IGameMovement>("client.dll", "GameMovement");
-        g_pMoveHelper   = **reinterpret_cast<IMoveHelper***>((Utils::FindSignature("client.dll", "8B 0D ? ? ? ? 8B 46 08 68") + 0x2));  
+        g_pMoveHelper   = **reinterpret_cast<IMoveHelper***>((Utils::find_signature("client.dll", "8B 0D ? ? ? ? 8B 46 08 68") + 0x2));  
         g_pEventManager = CaptureInterface<IGameEventManager>("engine.dll", "GAMEEVENTSMANAGER002");
 		csgo_surface = FindClass<ISurface>("vguimatsurface.dll", "VGUI_Surface");
 		trace        = FindClass<IEngineTrace>("engine.dll", "EngineTraceClient");
@@ -109,25 +112,12 @@ namespace interfaces
 		g_pPanel		= FindClass<IPanel>("vgui2.dll", "VGUI_Panel");
 		model_info    = FindClass<IVModelInfo>("engine.dll", "VModelInfoClient");
 		g_pModelRender  = FindClass<CModelRender>("engine.dll", "VEngineModel");
-		g_pMaterialSys  = FindClass<IMaterialSystem>("materialsystem.dll", "VMaterialSystem");
+		material_system  = FindClass<IMaterialSystem>("materialsystem.dll", "VMaterialSystem");
 		g_pRenderView   = FindClass<IVRenderView>("engine.dll", "VEngineRenderView");
+		client_state = **reinterpret_cast< CClientState*** > ( ( *reinterpret_cast< uintptr_t** > ( engine ) )[ 12 ] + 0x10 );
+		memory_alloc = *reinterpret_cast< i_mem_alloc** > ( GetProcAddress( GetModuleHandleA( "tier0.dll" ), "g_pMemAlloc" ) );
 
-		//thanks monarch (from yeti)
-		std::ofstream("csgo\\materials\\FlatChams.vmt") << R"#("UnlitGeneric"
-{
-  "$basetexture" "vgui/white_additive"
-  "$no_fullbright" "0"
-  "$ignorez"      "1"
-  "$envmap"       "env_cubemap"
-  "$nofog"        "1"
-  "$model"        "1"
-  "$nocull"       "0"
-  "$selfillum"    "1"
-  "$halflambert"  "1"
-  "$znearer"      "0"
-  "$flat"         "1"
-}
-)#";
+
 
     }
 }

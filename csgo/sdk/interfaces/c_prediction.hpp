@@ -149,4 +149,4 @@ public:
 #endif
 };
 
-extern CPrediction* g_pPrediction;
+extern CPrediction* prediction;

@@ -19,7 +19,7 @@ enum ClientFrameStage_t
 	frame_net_update_start,
 	frame_net_update_postdataupdate_start,
 	frame_net_update_postdataupdate_end,
-	frame_net_update_END,
+	frame_net_update_end,
 	frame_render_start,
 	frame_render_end
 };

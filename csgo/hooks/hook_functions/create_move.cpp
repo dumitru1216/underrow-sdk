@@ -11,7 +11,7 @@ bool __fastcall hooks::create_move( IClientMode* thisptr, void* edx, float sampl
 
 	/* fixing invalid values */
 	csgo::m_cmd = pCmd;
-	csgo::m_local = entity_list->GetClientEntity( csgo_engine->GetLocalPlayer( ) );
+	csgo::m_local = entity_list->GetClientEntity( engine->GetLocalPlayer( ) );
 	csgo::m_send_packet = true;
 
 	/* return function */
@@ -39,6 +39,9 @@ bool __fastcall hooks::create_move( IClientMode* thisptr, void* edx, float sampl
 	/* setup angles */
 	if (csgo::m_send_packet)
 		csgo::m_real_angle = csgo::m_cmd->viewangles;
+
+	/* manage fake */
+	function::c_local_animations.manage_fake_animations( );
 
 	*(bool*)(*framePtr - 0x1C) = csgo::m_send_packet;
 

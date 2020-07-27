@@ -18,6 +18,9 @@ namespace csgo
 	bool m_lag_peek = false;
 	bool m_shot[ 65 ];
 	bool m_hit[ 65 ];
+	bool m_update[ 65 ];
+	bool m_allow_setup_bones;
+	bool m_got_fake_matrix = false;
 
 	/* ints */
 	int m_target_index = -1;
@@ -26,6 +29,7 @@ namespace csgo
 	/* other */
     std::uintptr_t uRandomSeed  = NULL;
 	in_use backup = in_use{ };
+	matrix3x4_t m_fake_matrix[ 128 ];
 
 	/* fonts */
 	DWORD esp_font;

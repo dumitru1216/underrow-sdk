@@ -29,7 +29,7 @@ void hooks::HookPlayers( )
 	static bool Init[65];
 	static bool Hooked[65];
 
-	for (int i = 1; i < csgo_engine->GetMaxClients( ); ++i)
+	for (int i = 1; i < engine->GetMaxClients( ); ++i)
 	{
 		C_BaseEntity* pPlayerEntity = entity_list->GetClientEntity( i );
 

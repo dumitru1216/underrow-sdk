@@ -1,6 +1,6 @@
 #pragma once
 
-class CGlobalVarsBase
+class Cglobal_varsBase
 {
 public:
     float     realtime;
@@ -26,4 +26,4 @@ private:
     //  all of the entities from forcing a new PackedEntity on the same tick (i.e., prevents them from getting lockstepped on this)
     int       nTimestampRandomizeWindow;
 };
-extern CGlobalVarsBase* globalvars;
+extern Cglobal_varsBase* global_vars;

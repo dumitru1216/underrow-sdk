@@ -58,7 +58,16 @@ public:
 		bool health_bar;
 		bool skeleton_esp;
 		bool flags_esp;
-	
+
+		/* world */
+		bool world_modulate;
+		bool modulate;
+		int night_value;
+		bool prop;
+		bool enabled;
+		float prop_color[ 4 ] = { 1.0f, 1.0f, 1.0f, 1.0f };
+		float world_color[ 4 ] = { 1.0f, 1.0f, 1.0f, 1.0f };
+
 		bool NoZoom;
 		bool NoScope;
 		bool NoRecoil;

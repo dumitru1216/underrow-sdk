@@ -3,8 +3,8 @@
 #include "../../sdk/interfaces/c_global_vars_base.hpp"
 #include <deque>
 
-#define time_to_ticks( dt )		( (int)( 0.5 + (float)(dt) / globalvars->intervalPerTick ) )
-#define ticks_to_time( t )		( globalvars->intervalPerTick *( t ) )
+#define time_to_ticks( dt )		( (int)( 0.5 + (float)(dt) / global_vars->intervalPerTick ) )
+#define ticks_to_time( t )		( global_vars->intervalPerTick *( t ) )
 
 struct player_records_t {
 	matrix3x4_t matrix[ 128 ];

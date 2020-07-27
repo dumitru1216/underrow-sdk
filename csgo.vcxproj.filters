@@ -72,15 +72,20 @@
     <ClCompile Include="csgo\hooks\hook_functions\scene_end.cpp" />
     <ClCompile Include="csgo\hooks\hook_helpers\hook_helper.cpp" />
     <ClCompile Include="csgo\hooks\csgo_hooks.cpp" />
-    <ClCompile Include="csgo\menu\imgui\dx9\imgui_impl_dx9.cpp" />
-    <ClCompile Include="csgo\menu\imgui\imgui.cpp" />
-    <ClCompile Include="csgo\menu\imgui\imgui_draw.cpp" />
     <ClCompile Include="csgo\features\prediction_system\prediction_system.cpp" />
     <ClCompile Include="csgo\features\movement_system\movement_system.cpp" />
     <ClCompile Include="csgo\features\visuals\player_esp\player_esp.cpp" />
     <ClCompile Include="csgo\features\autowall\autowall.cpp" />
     <ClCompile Include="csgo\features\lag_comp_system\lag_comp_system.cpp" />
     <ClCompile Include="csgo\features\ragebot\ragebot.cpp" />
+    <ClCompile Include="csgo\menu\imgui\dx9\imgui_impl_dx9.cpp" />
+    <ClCompile Include="csgo\menu\imgui\imgui.cpp" />
+    <ClCompile Include="csgo\menu\imgui\imgui_draw.cpp" />
+    <ClCompile Include="csgo\features\visuals\world_esp\world_esp.cpp" />
+    <ClCompile Include="csgo\features\animations_system\local animations\local_animations.cpp" />
+    <ClCompile Include="csgo\hooks\hook_detour\detour_hooks.cpp" />
+    <ClCompile Include="csgo\hooks\hook_detour\hook_function\d_setup_bones.cpp" />
+    <ClCompile Include="csgo\features\misc\thirdperson\thirdperson.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="csgo\menu\external_include.hpp">
@@ -225,14 +230,6 @@
     <ClInclude Include="csgo\hooks\hook_helpers\hook_helper.hpp" />
     <ClInclude Include="csgo\hooks\csgo_hooks.hpp" />
     <ClInclude Include="csgo\render_system\helpers\render_helpers.hpp" />
-    <ClInclude Include="csgo\menu\imgui\dx9\imgui_impl_dx9.h" />
-    <ClInclude Include="csgo\menu\imgui\font.hh" />
-    <ClInclude Include="csgo\menu\imgui\imconfig.h" />
-    <ClInclude Include="csgo\menu\imgui\imgui.h" />
-    <ClInclude Include="csgo\menu\imgui\imgui_internal.h" />
-    <ClInclude Include="csgo\menu\imgui\stb_rect_pack.h" />
-    <ClInclude Include="csgo\menu\imgui\stb_textedit.h" />
-    <ClInclude Include="csgo\menu\imgui\stb_truetype.h" />
     <ClInclude Include="csgo\menu\ui\font.hpp" />
     <ClInclude Include="csgo\features\prediction_system\prediction_system.hpp" />
     <ClInclude Include="csgo\features\includes.hpp" />
@@ -241,5 +238,20 @@
     <ClInclude Include="csgo\features\autowall\autowall.hpp" />
     <ClInclude Include="csgo\features\lag_comp_system\lag_comp_system.hpp" />
     <ClInclude Include="csgo\features\ragebot\ragebot.hpp" />
+    <ClInclude Include="csgo\menu\imgui\dx9\imgui_impl_dx9.h" />
+    <ClInclude Include="csgo\menu\imgui\font.hh" />
+    <ClInclude Include="csgo\menu\imgui\imconfig.h" />
+    <ClInclude Include="csgo\menu\imgui\imgui.h" />
+    <ClInclude Include="csgo\menu\imgui\imgui_internal.h" />
+    <ClInclude Include="csgo\menu\imgui\stb_rect_pack.h" />
+    <ClInclude Include="csgo\menu\imgui\stb_textedit.h" />
+    <ClInclude Include="csgo\menu\imgui\stb_truetype.h" />
+    <ClInclude Include="csgo\features\visuals\world_esp\world_esp.hpp" />
+    <ClInclude Include="csgo\features\animations_system\local animations\local_animations.hpp" />
+    <ClInclude Include="csgo\sdk\other\data_map.hpp" />
+    <ClInclude Include="csgo\sdk\interfaces\i_memory_alloc.hpp" />
+    <ClInclude Include="csgo\hooks\hook_detour\detour_hooks.hpp" />
+    <ClInclude Include="csgo\hooks\hook_detour\hook_mode\detours.h" />
+    <ClInclude Include="csgo\features\misc\thirdperson\thirdperson.hpp" />
   </ItemGroup>
 </Project>

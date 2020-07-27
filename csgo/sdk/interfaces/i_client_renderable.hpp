@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../other/vmatrix.hpp"
+#include "i_client_unknown.hpp"
 
 typedef unsigned short ClientShadowHandle_t;
 typedef unsigned short ClientRenderHandle_t;
@@ -8,6 +9,7 @@ typedef unsigned short ModelInstanceHandle_t;
 typedef unsigned char uint8;
 
 struct model_t;
+class IClientUnknown;
 
 class IClientRenderable
 {
