@@ -62,13 +62,13 @@ public:
 	void DrawModelExecute(IMatRenderContext* ctx, const DrawModelState_t& state, const ModelRenderInfo_t& pInfo, matrix3x4_t* pCustomBoneToWorld)
 	{
 		typedef void(__thiscall* Fn)(void*, IMatRenderContext*, const DrawModelState_t&, const ModelRenderInfo_t&, matrix3x4_t*);
-		Utils::GetVFunc<Fn>(this, 21)(this, ctx, state, pInfo, pCustomBoneToWorld);
+		Utils::get_vfunc<Fn>(this, 21)(this, ctx, state, pInfo, pCustomBoneToWorld);
 	}
 
 	void ForcedMaterialOverride(IMaterial* newMaterial, OverrideType_t nOverrideType = OVERRIDE_NORMAL)
 	{
 		typedef void(__thiscall* Fn)(void*, IMaterial*, OverrideType_t, int);
-		Utils::GetVFunc<Fn>(this, 1)(this, newMaterial, nOverrideType, NULL);
+		Utils::get_vfunc<Fn>(this, 1)(this, newMaterial, nOverrideType, NULL);
 	}
 };
 

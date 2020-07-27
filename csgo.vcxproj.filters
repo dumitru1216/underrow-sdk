@@ -75,6 +75,9 @@
     <ClCompile Include="csgo\menu\imgui\dx9\imgui_impl_dx9.cpp" />
     <ClCompile Include="csgo\menu\imgui\imgui.cpp" />
     <ClCompile Include="csgo\menu\imgui\imgui_draw.cpp" />
+    <ClCompile Include="csgo\features\prediction_system\prediction_system.cpp" />
+    <ClCompile Include="csgo\features\movement_system\movement_system.cpp" />
+    <ClCompile Include="csgo\features\visuals\player_esp\player_esp.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="csgo\menu\external_include.hpp">
@@ -228,5 +231,9 @@
     <ClInclude Include="csgo\menu\imgui\stb_textedit.h" />
     <ClInclude Include="csgo\menu\imgui\stb_truetype.h" />
     <ClInclude Include="csgo\menu\ui\font.hpp" />
+    <ClInclude Include="csgo\features\prediction_system\prediction_system.hpp" />
+    <ClInclude Include="csgo\features\includes.hpp" />
+    <ClInclude Include="csgo\features\movement_system\movement_system.hpp" />
+    <ClInclude Include="csgo\features\visuals\player_esp\player_esp.hpp" />
   </ItemGroup>
 </Project>

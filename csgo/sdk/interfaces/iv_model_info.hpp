@@ -224,4 +224,4 @@ public:
 	}
 };
 
-extern IVModelInfo* g_pModelInfo;
+extern IVModelInfo* model_info;

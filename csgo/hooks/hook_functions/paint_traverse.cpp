@@ -13,8 +13,8 @@ void __fastcall hooks::paint_traverse( PVOID pPanels, int edx, unsigned int vgui
 		}
 	}
 
-	if ( panelHudID == vguiPanel && csgo::m_local && csgo::m_local->IsAlive( ) && variable.Config.NoScope ) {
-		if ( csgo::m_local->IsScoped( ) )
+	if ( panelHudID == vguiPanel && csgo::m_local && csgo::m_local->is_alive( ) && variable.Config.NoScope ) {
+		if ( csgo::m_local->is_scoped( ) )
 			return;
 	} 
 
@@ -28,6 +28,6 @@ void __fastcall hooks::paint_traverse( PVOID pPanels, int edx, unsigned int vgui
 	}
 
 	if ( panelID == vguiPanel ) {
-		//csgo_surface->FilledRect( 1, 1, 900, 5, color_t( 255, 0, 0, 255 ) );
+		function::c_player_esp.setup( );
 	}
 }

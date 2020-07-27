@@ -131,6 +131,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="csgo\dll_main.cpp" />
+    <ClCompile Include="csgo\features\movement_system\movement_system.cpp" />
+    <ClCompile Include="csgo\features\prediction_system\prediction_system.cpp" />
+    <ClCompile Include="csgo\features\visuals\player_esp\player_esp.cpp" />
     <ClCompile Include="csgo\hooks\csgo_hooks.cpp" />
     <ClCompile Include="csgo\hooks\hook_functions\bone_processing.cpp" />
     <ClCompile Include="csgo\hooks\hook_functions\create_move.cpp" />
@@ -157,6 +160,10 @@
     <ClCompile Include="csgo\utils\interfaces\netvar_manager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="csgo\features\includes.hpp" />
+    <ClInclude Include="csgo\features\movement_system\movement_system.hpp" />
+    <ClInclude Include="csgo\features\prediction_system\prediction_system.hpp" />
+    <ClInclude Include="csgo\features\visuals\player_esp\player_esp.hpp" />
     <ClInclude Include="csgo\hooks\csgo_hooks.hpp" />
     <ClInclude Include="csgo\hooks\hook_helpers\hook_helper.hpp" />
     <ClInclude Include="csgo\menu\config_system\archivex.hpp" />

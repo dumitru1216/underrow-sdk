@@ -46,127 +46,127 @@ public:
 	void unlock_cursor()
 	{
 		typedef void(__thiscall* Fn)(void*);
-		Utils::GetVFunc< Fn >(this, 66)(this);
+		Utils::get_vfunc< Fn >(this, 66)(this);
 	}
 
 	void DrawSetcolor_t(color_t col)
 	{
 		typedef void(__thiscall* Fn)(PVOID, color_t);
-		return Utils::GetVFunc< Fn >(this, 14)(this, col);
+		return Utils::get_vfunc< Fn >(this, 14)(this, col);
 	}
 
 	void DrawSetcolor_t(int r, int g, int b, int a)
 	{
 		typedef void(__thiscall* Fn)(PVOID, int, int, int, int);
-		Utils::GetVFunc< Fn >(this, 15)(this, r, g, b, a);
+		Utils::get_vfunc< Fn >(this, 15)(this, r, g, b, a);
 	}
 
 	void DrawFilledRect(int x0, int y0, int x1, int y1)
 	{
 		typedef void(__thiscall* Fn)(PVOID, int, int, int, int);
-		Utils::GetVFunc< Fn >(this, 16)(this, x0, y0, x1, y1);
+		Utils::get_vfunc< Fn >(this, 16)(this, x0, y0, x1, y1);
 	}
 
 	void DrawOutlinedRect(int x0, int y0, int x1, int y1)
 	{
 		typedef void(__thiscall* Fn)(PVOID, int, int, int, int);
-		Utils::GetVFunc< Fn >(this, 18)(this, x0, y0, x1, y1);
+		Utils::get_vfunc< Fn >(this, 18)(this, x0, y0, x1, y1);
 	}
 
 	void DrawLine(int x0, int y0, int x1, int y1)
 	{
 		typedef void(__thiscall* Fn)(PVOID, int, int, int, int);
-		Utils::GetVFunc< Fn >(this, 19)(this, x0, y0, x1, y1);
+		Utils::get_vfunc< Fn >(this, 19)(this, x0, y0, x1, y1);
 	}
 
 	void DrawPolyLine(int *x, int *y, int count)
 	{
 		typedef void(__thiscall* Fn)(PVOID, int *, int *, int);
-		Utils::GetVFunc< Fn >(this, 20)(this, x, y, count);
+		Utils::get_vfunc< Fn >(this, 20)(this, x, y, count);
 	}
 
 	void DrawSetTextFont(unsigned long font)
 	{
 		typedef void(__thiscall* Fn)(PVOID, unsigned long);
-		Utils::GetVFunc< Fn >(this, 23)(this, font);
+		Utils::get_vfunc< Fn >(this, 23)(this, font);
 	}
 
 	void DrawSetTextcolor_t(int r, int g, int b, int a)
 	{
 		typedef void(__thiscall* Fn)(PVOID, int, int, int, int);
-		Utils::GetVFunc< Fn >(this, 25)(this, r, g, b, a);
+		Utils::get_vfunc< Fn >(this, 25)(this, r, g, b, a);
 	}
 
 	void DrawSetTextcolor_t(color_t col)
 	{
 		typedef void(__thiscall* Fn)(PVOID, color_t);
-		return Utils::GetVFunc< Fn >(this, 24)(this, col);
+		return Utils::get_vfunc< Fn >(this, 24)(this, col);
 	}
 
 	void DrawSetTextPos(int x, int y)
 	{
 		typedef void(__thiscall* Fn)(PVOID, int, int);
-		Utils::GetVFunc< Fn >(this, 26)(this, x, y);
+		Utils::get_vfunc< Fn >(this, 26)(this, x, y);
 	}
 
 	void DrawPrintText(const wchar_t* text, int textLen)
 	{
 		typedef void(__thiscall* Fn)(PVOID, const wchar_t*, int, int);
-		Utils::GetVFunc< Fn >(this, 28)(this, text, textLen, 0);
+		Utils::get_vfunc< Fn >(this, 28)(this, text, textLen, 0);
 	}
 
 	void DrawSetTexture(int textureID)
 	{
 		typedef void(__thiscall* Fn)(PVOID, int);
-		return Utils::GetVFunc< Fn >(this, 38)(this, textureID);
+		return Utils::get_vfunc< Fn >(this, 38)(this, textureID);
 	}
 
 	void DrawSetTextureRGBA(int textureID, unsigned char  const* color_ts, int w, int h)
 	{
 		typedef void(__thiscall* Fn)(PVOID, int, unsigned char  const*, int, int);
-		return Utils::GetVFunc< Fn >(this, 37)(this, textureID, color_ts, w, h);
+		return Utils::get_vfunc< Fn >(this, 37)(this, textureID, color_ts, w, h);
 	}
 
 	int CreateNewTextureID(bool procedural)
 	{
 		typedef int(__thiscall* Fn)(PVOID, bool);
-		return Utils::GetVFunc< Fn >(this, 43)(this, procedural);
+		return Utils::get_vfunc< Fn >(this, 43)(this, procedural);
 	}
 
 	void DrawTexturedPolygon(int vtxCount, FontVertex_t *vtx, bool bClipVertices = true)
 	{
 		typedef void(__thiscall* Fn)(PVOID, int, FontVertex_t*, bool);
-		return Utils::GetVFunc< Fn >(this, 106)(this, vtxCount, vtx, bClipVertices);
+		return Utils::get_vfunc< Fn >(this, 106)(this, vtxCount, vtx, bClipVertices);
 	}
 
 	unsigned long FontCreate()
 	{
 		typedef unsigned int(__thiscall* Fn)(PVOID);
-		return Utils::GetVFunc< Fn >(this, 71)(this);
+		return Utils::get_vfunc< Fn >(this, 71)(this);
 	}
 
 	void SetFontGlyphSet(unsigned long font, const char* windowsFontName, int tall, int weight, int blur, int scanlines, int flags)
 	{
 		typedef void(__thiscall* Fn)(PVOID, unsigned long, const char*, int, int, int, int, int, int, int);
-		Utils::GetVFunc< Fn >(this, 72)(this, font, windowsFontName, tall, weight, blur, scanlines, flags, 0, 0);
+		Utils::get_vfunc< Fn >(this, 72)(this, font, windowsFontName, tall, weight, blur, scanlines, flags, 0, 0);
 	}
 
 	void ISurface::GetTextSize(DWORD font, const wchar_t *text, int &wide, int &tall)
 	{
 		typedef void(__thiscall* Fn)(void*, DWORD, const wchar_t*, int&, int&);
-		return Utils::GetVFunc<Fn>(this, 79)(this, font, text, wide, tall);
+		return Utils::get_vfunc<Fn>(this, 79)(this, font, text, wide, tall);
 	}
 
 	void DrawOutlinedCircle(int x, int y, int r, int seg)
 	{
 		typedef void(__thiscall* Fn)(PVOID, int, int, int, int);
-		return Utils::GetVFunc< Fn >(this, 103)(this, x, y, r, seg);
+		return Utils::get_vfunc< Fn >(this, 103)(this, x, y, r, seg);
 	}
 
 	void SurfaceGetCursorPos(int &x, int &y)
 	{
 		typedef void(__thiscall* Fn)(PVOID, int&, int&);
-		return Utils::GetVFunc< Fn >(this, 66)(this, x, y);
+		return Utils::get_vfunc< Fn >(this, 66)(this, x, y);
 	}
 
 	void RoundedFilledRect(int x, int y, int width, int height, float radius, color_t col) { // UC https://www.unknowncheats.me/forum/1498179-post4.html
@@ -207,7 +207,7 @@ public:
 		DrawFilledRect(x, y, x + w, y + h);
 	}
 
-	void OutlinedRect(int x, int y, int w, int h, color_t color_t)
+	void rect(int x, int y, int w, int h, color_t color_t)
 	{
 		DrawSetcolor_t(color_t.red, color_t.green, color_t.blue, color_t.alpha);
 		DrawOutlinedRect(x, y, x + w, y + h);
@@ -222,13 +222,13 @@ public:
 		DrawLine(x, y2, x, y);
 	}
 
-	void Line(int x, int y, int x2, int y2, color_t color_t)
+	void line(int x, int y, int x2, int y2, color_t color_t)
 	{
 		DrawSetcolor_t(color_t.red, color_t.green, color_t.blue, color_t.alpha);
 		DrawLine(x, y, x2, y2);
 	}
 
-	void DrawT(int X, int Y, color_t color_t, int Font, bool Center, const char* _Input, ...)
+	void text(int X, int Y, color_t color_t, int Font, bool Center, const char* _Input, ...)
 	{
 		int apple = 0;
 		char Buffer[2048] = { '\0' };

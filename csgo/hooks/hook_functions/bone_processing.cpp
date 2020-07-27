@@ -7,20 +7,20 @@ void __fastcall hooks::DoExtraBonesProcessing( void * ECX, void * EDX, void * un
 	if (!pPlayerEntity || pPlayerEntity == nullptr)
 		return;
 
-	if (!pPlayerEntity->IsAlive( ) || pPlayerEntity->IsDormant( ))
+	if (!pPlayerEntity->is_alive( ) || pPlayerEntity->IsDormant( ))
 		return;
 
-	if (!pPlayerEntity->AnimState( ))
+	if (!pPlayerEntity->anim_state( ))
 		return;
 
 	auto oDoExtraBonesProcessing = c_hooks.pPlayerHook[pPlayerEntity->EntIndex( )]->GetOriginal<ExtraBoneProcess_t>( vtable_indexes::extraBonePro );
 
-	float Backup = pPlayerEntity->AnimState( )->m_flUnknownFraction;
-	pPlayerEntity->AnimState( )->m_flUnknownFraction = 0;
+	float Backup = pPlayerEntity->anim_state( )->m_flUnknownFraction;
+	pPlayerEntity->anim_state( )->m_flUnknownFraction = 0;
 
 	oDoExtraBonesProcessing( ECX, unkn1, unkn2, unkn3, unkn4, unkn5, unkn6 );
 
-	pPlayerEntity->AnimState( )->m_flUnknownFraction = Backup;
+	pPlayerEntity->anim_state( )->m_flUnknownFraction = Backup;
 }
 
 
@@ -31,10 +31,10 @@ void hooks::HookPlayers( )
 
 	for (int i = 1; i < csgo_engine->GetMaxClients( ); ++i)
 	{
-		C_BaseEntity* pPlayerEntity = g_pEntityList->GetClientEntity( i );
+		C_BaseEntity* pPlayerEntity = entity_list->GetClientEntity( i );
 
 		if (!pPlayerEntity
-			|| !pPlayerEntity->IsAlive( )
+			|| !pPlayerEntity->is_alive( )
 			|| pPlayerEntity->IsDormant( ))
 		{
 			if (Hooked[i])

@@ -9,7 +9,7 @@
 // class predefinition
 class C_BaseCombatWeapon;
 
-class C_AnimState
+class c_anim_state
 {
 public:
 	char pad[3];
@@ -65,7 +65,7 @@ public:
 	char pad10[528];
 };
 
-class AnimationLayer {
+class animation_layer {
 public:
 	char  pad_0000[20];
 	// These should also be present in the padding, don't see the use for it though
@@ -93,7 +93,7 @@ private:
     }
     // To get value from the pointer itself
     template<class T>
-    T GetValue(const int offset)
+    T get_value(const int offset)
     {
         return *reinterpret_cast<T*>(reinterpret_cast<std::uintptr_t>(this) + offset);
     }
@@ -105,264 +105,189 @@ private:
 	}
 
 public:
-
-	C_AnimState *AnimState()
-	{
-		return *reinterpret_cast<C_AnimState**>(uintptr_t(this) + 0x3914);
+	c_anim_state *anim_state() {
+		return *reinterpret_cast< c_anim_state**>(uintptr_t(this) + 0x3914);
 	}
-
-	AnimationLayer *AnimOverlays()
-	{
-		return *reinterpret_cast<AnimationLayer**>(uintptr_t(this) + 0x2980);
+	animation_layer *anim_overlays() {
+		return *reinterpret_cast< animation_layer**>(uintptr_t(this) + 0x2980);
 	}
-
-	int NumOverlays()
-	{
+	int num_overlays() {
 		return 15;
 	}
-
-	void UpdateClientAnimation()
-	{
-		Utils::GetVFunc<void(__thiscall*)(void*)>(this, 223)(this);
-	}
-
-	void ClientAnimations(bool value)
-	{
+	void update_client_side_animation() {
+		Utils::get_vfunc<void(__thiscall*)(void*)>(this, 223)(this);
+	} 
+	void client_animations(bool value) {
 		static int m_bClientSideAnimation = g_pNetvars->GetOffset("DT_BaseAnimating", "m_bClientSideAnimation");
 		*reinterpret_cast<bool*>(uintptr_t(this) + m_bClientSideAnimation) = value;
 	}
-
-	int GetSequence()
-	{
+	int get_sequence() {
 		static int m_nSequence = g_pNetvars->GetOffset("DT_BaseAnimating", "m_nSequence");
-		return GetValue<int>(m_nSequence);
+		return get_value<int>(m_nSequence);
 	}
-
-	void SetSequence(int Sequence)
-	{
+	void set_sequence(int Sequence) {
 		static int m_nSequence = g_pNetvars->GetOffset("DT_BaseAnimating", "m_nSequence");
 		*reinterpret_cast<int*>(uintptr_t(this) + m_nSequence) = Sequence;
 	}
-
-	void SimulatedEveryTick(bool value)
-	{
+	void simulated_every_tick(bool value) {
 		static int m_bSimulatedEveryTick = g_pNetvars->GetOffset("DT_BaseEntity", "m_bSimulatedEveryTick");
 		*reinterpret_cast<bool*>(uintptr_t(this) + m_bSimulatedEveryTick) = value;
 	}
-
-	void SetAbsAngles(Vector angles);
-	void SetAbsOrigin(Vector origin);
-
-	Vector GetAbsOrigin()
-	{
-		return Utils::GetVFunc<Vector&(__thiscall*)(void*)>(this, 10)(this);
+	Vector get_abs_origin() {
+		return Utils::get_vfunc<Vector&(__thiscall*)(void*)>(this, 10)(this);
 	}
-
-	void SetAbsVelocity(Vector velocity);
-
-    C_BaseCombatWeapon* GetActiveWeapon()
-    {
+    C_BaseCombatWeapon* get_active_weapon() {
         static int m_hActiveWeapon = g_pNetvars->GetOffset("DT_BaseCombatCharacter", "m_hActiveWeapon");
-        const auto weaponData      = GetValue<CBaseHandle>(m_hActiveWeapon);
-        return reinterpret_cast<C_BaseCombatWeapon*>(g_pEntityList->GetClientEntityFromHandle(weaponData));
+        const auto weaponData      = get_value<CBaseHandle>(m_hActiveWeapon);
+        return reinterpret_cast<C_BaseCombatWeapon*>(entity_list->GetClientEntityFromHandle(weaponData));
     }
-
-    int GetTeam()
-    {
+    int get_team() {
         static int m_iTeamNum = g_pNetvars->GetOffset("DT_BaseEntity", "m_iTeamNum");
-        return GetValue<int>(m_iTeamNum);
+        return get_value<int>(m_iTeamNum);
     }
-
-    EntityFlags GetFlags()
-    {
+    EntityFlags get_flags() {
         static int m_fFlags = g_pNetvars->GetOffset("DT_BasePlayer", "m_fFlags");
-        return GetValue<EntityFlags>(m_fFlags);
+        return get_value<EntityFlags>(m_fFlags);
     }
-
-	void SetFlags(int offset)
-	{
+	void set_flags(int offset) {
 		static int m_fFlags = g_pNetvars->GetOffset("DT_BasePlayer", "m_fFlags");
 		*reinterpret_cast<int*>(uintptr_t(this) + m_fFlags) = offset;
 	}
-
-    MoveType_t GetMoveType()
-    {
+    MoveType_t get_move_type() {
         static int m_Movetype = g_pNetvars->GetOffset("DT_BaseEntity", "m_nRenderMode") + 1;
-        return GetValue<MoveType_t>(m_Movetype);
+        return get_value<MoveType_t>(m_Movetype);
     }
-
-	float GetSimulationTime()
-	{
+	float get_simulation_time() {
 		static int m_flSimulationTime = g_pNetvars->GetOffset("DT_BaseEntity", "m_flSimulationTime");
-		return GetValue<float>(m_flSimulationTime);
+		return get_value<float>(m_flSimulationTime);
 	}
-
-	float GetOldSimulationTime()
-	{
+	float get_old_simulation_time() {
 		static int m_flOldSimulationTime = g_pNetvars->GetOffset("DT_BaseEntity", "m_flSimulationTime") + 4;
-		return GetValue<float>(m_flOldSimulationTime);
+		return get_value<float>(m_flOldSimulationTime);
 	}
-
-	float GetLowerBodyYaw()
-	{
+	float get_lowerbody_yaw() {
 		static int m_flLowerBodyYawTarget = g_pNetvars->GetOffset("DT_CSPlayer", "m_flLowerBodyYawTarget");
-		return GetValue<float>(m_flLowerBodyYawTarget);
+		return get_value<float>(m_flLowerBodyYawTarget);
 	}
-
-	void SetLowerBodyYaw(float value)
-	{
+	void set_lowerbody_yaw(float value) {
 		static int m_flLowerBodyYawTarget = g_pNetvars->GetOffset("DT_CSPlayer", "m_flLowerBodyYawTarget");
 		*reinterpret_cast<float*>(uintptr_t(this) + m_flLowerBodyYawTarget) = value;
 	}
-
-	bool GetHeavyArmor()
-	{
+	bool get_heavy_armor() {
 		static int m_bHasHeavyArmor = g_pNetvars->GetOffset("DT_CSPlayer", "m_bHasHeavyArmor");
-		return GetValue<bool>(m_bHasHeavyArmor);
+		return get_value<bool>(m_bHasHeavyArmor);
 	}
-
-	int ArmorValue()
-	{
+	int armor_value() {
 		static int m_ArmorValue = g_pNetvars->GetOffset("DT_CSPlayer", "m_ArmorValue");
-		return GetValue<int>(m_ArmorValue);
+		return get_value<int>(m_ArmorValue);
 	}
-
-	bool HasHelmet()
-	{
+	bool has_hemlet() {
 		static int m_bHasHelmet = g_pNetvars->GetOffset("DT_CSPlayer", "m_bHasHelmet");
-		return GetValue<bool>(m_bHasHelmet);
+		return get_value<bool>(m_bHasHelmet);
 	}
-
-    bool GetLifeState()
-    {
+    bool get_life_state() {
         static int m_lifeState = g_pNetvars->GetOffset("DT_BasePlayer", "m_lifeState");
-        return GetValue<bool>(m_lifeState);
+        return get_value<bool>(m_lifeState);
     }
-
-	bool IsScoped()
-	{
+	bool is_scoped() {
 		static int m_bIsScoped = g_pNetvars->GetOffset("DT_CSPlayer", "m_bIsScoped");
-		return GetValue<bool>(m_bIsScoped);
+		return get_value<bool>(m_bIsScoped);
 	}
-
-    int GetHealth()
-    {
-        static int m_iHealth = g_pNetvars->GetOffset("DT_BasePlayer", "m_iHealth");
-        return GetValue<int>(m_iHealth);
-    }
-
-	bool IsKnifeorNade();
-
-    bool IsAlive() { return this->GetHealth() > 0 && this->GetLifeState() == 0; }
-
-	bool IsEnemy();
-
-    bool IsImmune()
-    {
+	int get_health( ) {
+		static int m_iHealth = g_pNetvars->GetOffset( "DT_BasePlayer", "m_iHealth" );
+		return get_value<int>( m_iHealth );
+	}
+    bool is_alive() { 
+		return this->get_health() > 0 && this->get_life_state() == 0; 
+	}
+    bool is_imune() {
         static int m_bGunGameImmunity = g_pNetvars->GetOffset("DT_CSPlayer", "m_bGunGameImmunity");
-        return GetValue<bool>(m_bGunGameImmunity);
+        return get_value<bool>(m_bGunGameImmunity);
     }
-
-    int GetTickBase()
-    {
+    int get_tick_base() {
         static int m_nTickBase = g_pNetvars->GetOffset("DT_BasePlayer", "localdata", "m_nTickBase");
-        return GetValue<int>(m_nTickBase);
+        return get_value<int>(m_nTickBase);
     }
-
-	int GetShotsFired()
-	{
+	int get_shots_fired() {
 		static int m_iShotsFired = g_pNetvars->GetOffset("DT_CSPlayer", "cslocaldata", "m_iShotsFired");
-		return GetValue<int>(m_iShotsFired);
+		return get_value<int>(m_iShotsFired);
 	}
-
-	void SetTickBase(int TickBase)
-	{
+	void set_tickbase(int TickBase) {
 		static int m_nTickBase = g_pNetvars->GetOffset("DT_BasePlayer", "localdata", "m_nTickBase");
 		*reinterpret_cast<int*>(uintptr_t(this) + m_nTickBase) = TickBase;
 	}
-
-	Vector GetEyeAngles()
-	{
+	Vector get_eye_angles() {
 		static int m_angEyeAngles = g_pNetvars->GetOffset("DT_CSPlayer", "m_angEyeAngles");
-		return GetValue<Vector>(m_angEyeAngles);
+		return get_value<Vector>(m_angEyeAngles);
 	}
-
-	void SetEyeAngles(Vector Angle)
-	{
+	void set_eye_angles(Vector Angle) {
 		static int m_angEyeAngles = g_pNetvars->GetOffset("DT_CSPlayer", "m_angEyeAngles");
 		*reinterpret_cast<Vector*>(uintptr_t(this) + m_angEyeAngles) = Angle;
 	}
-
-    Vector GetOrigin()
-    {
+    Vector get_origin() {
         static int m_vecOrigin = g_pNetvars->GetOffset("DT_BaseEntity", "m_vecOrigin");
-        return GetValue<Vector>(m_vecOrigin);
+        return get_value<Vector>(m_vecOrigin);
     }
-
-	Vector GetOldOrigin()
-	{
+	Vector get_old_origin() {
 		static int m_vecOldOrigin = g_pNetvars->GetOffset("DT_BasePlayer", "localdata", "m_flFriction") + 12;
-		return GetValue<Vector>(m_vecOldOrigin);
+		return get_value<Vector>(m_vecOldOrigin);
 	}
-
-	Vector GetNetworkOrigin()
-	{
+	Vector get_network_origin() {
 		static int m_vecNetworkOrigin = g_pNetvars->GetOffset("DT_BasePlayer", "localdata", "m_flFriction") + 40;
-		return GetValue<Vector>(m_vecNetworkOrigin);
-	}
-
-	void SetOrigin(Vector Origin)
-	{
+		return get_value<Vector>(m_vecNetworkOrigin);
+	} 
+	void set_origin(Vector Origin) {
 		static int m_vecOrigin = g_pNetvars->GetOffset("DT_BaseEntity", "m_vecOrigin");
 		*reinterpret_cast<Vector*>(uintptr_t(this) + m_vecOrigin) = Origin;
 	}
-
-	Vector GetVelocity()
-	{
+	Vector get_velocity() {
 		static int m_vecVelocity = g_pNetvars->GetOffset("DT_BasePlayer", "localdata", "m_vecVelocity[0]");
-		return GetValue<Vector>(m_vecVelocity);
+		return get_value<Vector>(m_vecVelocity);
 	}
-
-	void SetVelocity(Vector velocity)
-	{
+	void set_velocity(Vector velocity) {
 		static int m_vecVelocity = g_pNetvars->GetOffset("DT_BasePlayer", "localdata", "m_vecVelocity[0]");
 		*reinterpret_cast<Vector*>(uintptr_t(this) + m_vecVelocity) = velocity;
 	}
-
-	Vector GetAimPunchAngle()
-	{
+	Vector get_aim_punch_angle() {
 		return *reinterpret_cast<Vector*>(uintptr_t(this) + uintptr_t(0x302C));
 	}
-
-	Vector GetViewPunchAngle()
-	{
+	Vector get_view_punch_angle() {
 		return *reinterpret_cast<Vector*>(uintptr_t(this) + uintptr_t(0x3020));
 	}
-
-    Vector GetEyePosition() 
-	{
+    Vector get_eye_position()  {
 		Vector ret;
 		typedef void(__thiscall *OrigFn)(void *, Vector&);
-		Utils::GetVFunc<OrigFn>(this, 284)(this, ret);
+		Utils::get_vfunc<OrigFn>(this, 284)(this, ret);
 		return ret;
 	}
-
-	ICollideable* GetCollideable()
-	{
+	ICollideable* get_collideable() {
 		return (ICollideable*)((DWORD)this + 0x318);
 	}
-
-	void SetCurrentCommand(CUserCmd *cmd)
-	{
+	void set_current_command(CUserCmd *cmd) {
 		static int m_hConstraintEntity = g_pNetvars->GetOffset("DT_BasePlayer", "localdata", "m_hConstraintEntity");
 		*reinterpret_cast<CUserCmd**>(uintptr_t(this) + m_hConstraintEntity - 0xC) = cmd;
 	}
+	char* get_armor_name( ) {
+		if ( armor_value( ) > 0 ) {
+			if ( has_hemlet( ) )
+				return "hk";
+			else
+				return "k";
+		}
+		else
+			return " ";
+	}
 
-	float FireRate();
-
-	void FixSetupBones(matrix3x4_t *Matrix);
-	Vector GetHitboxPosition(int Hitbox, matrix3x4_t *Matrix, float *Radius);
-	Vector GetHitboxPosition(int Hitbox, matrix3x4_t *Matrix);
+	/* we set here c_entity.cpp extern defs */
+	void set_abs_angles( Vector angles );
+	void set_abs_origin( Vector origin );
+	void set_abs_velocity( Vector velocity );
+	void fix_setup_bones(matrix3x4_t *Matrix);
+	Vector get_hitbox_position(int Hitbox, matrix3x4_t *Matrix, float *Radius);
+	Vector get_hitbox_position(int Hitbox, matrix3x4_t *Matrix);
+	bool is_knife_or_nade( );
+	bool is_enemy( );
+	float fire_rate( );
 };
 
 
@@ -376,69 +301,48 @@ private:
     }
     // To get value from the pointer itself
     template<class T>
-    T GetValue(const int offset)
+    T get_value(const int offset)
     {
         return *reinterpret_cast<T*>(reinterpret_cast<std::uintptr_t>(this) + offset);
     }
 
 public:
-
-    ItemDefinitionIndex GetItemDefinitionIndex()
-    {
+    ItemDefinitionIndex get_item_definition_index() {
         static int m_iItemDefinitionIndex = g_pNetvars->GetOffset("DT_BaseAttributableItem", "m_AttributeManager", "m_Item", "m_iItemDefinitionIndex");
-        return GetValue<ItemDefinitionIndex>(m_iItemDefinitionIndex);
+        return get_value<ItemDefinitionIndex>(m_iItemDefinitionIndex);
     }
-
-	float GetInaccuracy()
-	{
+	float get_inaccuracy() {
 		typedef float(__thiscall* oInaccuracy)(PVOID);
-		return Utils::GetVFunc< oInaccuracy >(this, 482)(this);
+		return Utils::get_vfunc< oInaccuracy >(this, 482)(this);
 	}
-
-	float GetSpread()
-	{
+	float get_spread() {
 		typedef float(__thiscall* oWeaponSpread)(PVOID);
-		return Utils::GetVFunc< oWeaponSpread >(this, 452)(this);
+		return Utils::get_vfunc< oWeaponSpread >(this, 452)(this);
 	}
-
-	float GetAccuracyPenalty()
-	{
+	float get_accuracy_penalty() {
 		static int m_fAccuracyPenalty = g_pNetvars->GetOffset("DT_WeaponCSBase", "m_fAccuracyPenalty");
-		return GetValue<float>(m_fAccuracyPenalty);
+		return get_value<float>(m_fAccuracyPenalty);
 	}
-
-	float GetLastShotTime()
-	{
+	float get_last_shot_time() {
 		static int m_fLastShotTime = g_pNetvars->GetOffset("DT_WeaponCSBase", "m_fLastShotTime");
-		return GetValue<float>(m_fLastShotTime);
+		return get_value<float>(m_fLastShotTime);
 	}
-
-	void AccuracyPenalty()
-	{
+	void accuracy_penalty() {
 		typedef void(__thiscall *OrigFn)(void *);
-		return Utils::GetVFunc<OrigFn>(this, 483)(this);
+		return Utils::get_vfunc<OrigFn>(this, 483)(this);
 	}
-
-    float GetNextPrimaryAttack()
-    {
+    float get_next_primary_attack() {
         static int m_flNextPrimaryAttack = g_pNetvars->GetOffset("DT_BaseCombatWeapon", "LocalActiveWeaponData", "m_flNextPrimaryAttack");
-        return GetValue<float>(m_flNextPrimaryAttack);
+        return get_value<float>(m_flNextPrimaryAttack);
     }
-
-    int GetAmmo()
-    {
+    int get_ammo() {
         static int m_iClip1 = g_pNetvars->GetOffset("DT_BaseCombatWeapon", "m_iClip1");
-        return GetValue<int>(m_iClip1);
+        return get_value<int>(m_iClip1);
     }
-
-    WeaponInfo_t* GetCSWpnData()
-    {
-        return Utils::CallVFunc<460, WeaponInfo_t*>(this);
+    WeaponInfo_t* weapon_info() {
+        return Utils::call_vfunc<460, WeaponInfo_t*>(this);
     }
-
-    std::string GetName()
-    {
-        ///TODO: Test if szWeaponName returns proper value for m4a4 / m4a1-s or it doesnt recognize them.
-        return std::string(this->GetCSWpnData()->weapon_name);
+    std::string get_name() {
+        return std::string(this->weapon_info()->weapon_name);
     }
 };

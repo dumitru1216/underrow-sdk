@@ -18,7 +18,7 @@ public:
 
 	struct
 	{
-		bool Aimbot;
+		bool enable_aimbot;
 		int Hitchance;
 		int HitchanceValue;
 		int Mindmg;
@@ -44,20 +44,16 @@ public:
 		bool FakeLagOnPeek;
 		bool ChokeShotOnPeek;
 
-		bool Esp;
-		int Font;
-		
-		int Name;
-		int HealthVal;
-		int Weapon;
-		bool Box;
+		/* esp */
+		bool enable_esp;	
+		bool dormancy_esp;
+		bool name_esp;
+		bool weapon_name;
+		bool box_esp;	
+		bool health_bar;
+		bool skeleton_esp;
+		bool flags_esp;
 	
-		bool HealthBar;
-		bool Skeleton[2] = { false,false };
-		
-		bool HitboxPoints;
-		bool Chams;
-		
 		bool NoZoom;
 		bool NoScope;
 		bool NoRecoil;

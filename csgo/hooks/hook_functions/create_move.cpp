@@ -11,7 +11,7 @@ bool __fastcall hooks::create_move( IClientMode* thisptr, void* edx, float sampl
 
 	/* fixing invalid values */
 	csgo::m_cmd = pCmd;
-	csgo::m_local = g_pEntityList->GetClientEntity( csgo_engine->GetLocalPlayer( ) );
+	csgo::m_local = entity_list->GetClientEntity( csgo_engine->GetLocalPlayer( ) );
 	csgo::m_send_packet = true;
 
 	/* return function */
@@ -24,6 +24,16 @@ bool __fastcall hooks::create_move( IClientMode* thisptr, void* edx, float sampl
 
 	/* clamp angles & function original view */
 	csgo::m_original_view = csgo::m_cmd->viewangles;
+
+	/* run prediction */ 
+	function::prediction_system::start_prediction( );
+
+	
+	/* end prediction */ 
+	function::prediction_system::end_prediction( );
+
+	/* clamp angles */
+	function::c_movement.setup_movement( csgo::m_cmd, csgo::m_original_view );
 	g_Math.Clamp( csgo::m_cmd->viewangles );
 
 	/* setup angles */

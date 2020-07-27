@@ -25,10 +25,17 @@ namespace csgo
 	extern int m_target_index;
 	extern int m_missed_shots[ 65 ];
 
+	/* in use */
+	struct in_use
+	{
+		float m_velocity_modifier;
+	};
+
 	/* other */
     extern std::uintptr_t uRandomSeed;
+	extern in_use backup;
 
 	/* fonts */
-	extern DWORD courier_new;
-	extern DWORD tahoma;
+	extern DWORD esp_font;
+	extern DWORD health_bar_font;
 }

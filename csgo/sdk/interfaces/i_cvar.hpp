@@ -12,37 +12,37 @@ public:
 	void SetValue(const char* str)
 	{
 		typedef void(__thiscall* Fn)(void*, const char*);
-		return Utils::GetVFunc<Fn>(this, 13)(this, str);
+		return Utils::get_vfunc<Fn>(this, 13)(this, str);
 	}
 	void SetValue(float value)
 	{
 		typedef void(__thiscall* Fn)(void*, float);
-		return Utils::GetVFunc<Fn>(this, 15)(this, value);
+		return Utils::get_vfunc<Fn>(this, 15)(this, value);
 	}
 	void SetValue(int value)
 	{
 		typedef void(__thiscall* Fn)(void*, int);
-		return Utils::GetVFunc<Fn>(this, 16)(this, value);
+		return Utils::get_vfunc<Fn>(this, 16)(this, value);
 	}
 	void SetValueChar(const char* name)
 	{
 		typedef void(__thiscall* Fn)(void*, const char*);
-		return Utils::GetVFunc<Fn>(this, 14)(this, name);
+		return Utils::get_vfunc<Fn>(this, 14)(this, name);
 	}
 	void InternalSetString(const char* str)
 	{
 		typedef void(__thiscall* Fn)(void*, const char*);
-		return Utils::GetVFunc<Fn>(this, 17)(this, str);
+		return Utils::get_vfunc<Fn>(this, 17)(this, str);
 	}
 	char* GetBaseName()
 	{
 		typedef char*(__thiscall* Fn)(void*);
-		return Utils::GetVFunc<Fn>(this, 6)(this);
+		return Utils::get_vfunc<Fn>(this, 6)(this);
 	}
 	float GetFloat()
 	{
 		typedef float(__thiscall* Fn)(void*);
-		return Utils::GetVFunc< Fn >(this, 12)(this);
+		return Utils::get_vfunc< Fn >(this, 12)(this);
 	}
 	int GetInt(void) const {
 		return pParent->nValue;
@@ -126,7 +126,7 @@ public:
 		va_end(list);
 		buf[sizeof(buf) - 1] = 0;
 
-		Utils::GetVFunc<OriginalFn>(this, 25)( this, clr, pFormat);
+		Utils::get_vfunc<OriginalFn>(this, 25)( this, clr, pFormat);
 	}
 };
 

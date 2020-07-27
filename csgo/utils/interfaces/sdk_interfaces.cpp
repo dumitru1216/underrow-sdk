@@ -27,19 +27,19 @@
 
 IBaseClientDLL*     g_pClientDll    = nullptr;
 IClientMode*        g_pClientMode   = nullptr;
-IClientEntityList*  g_pEntityList   = nullptr;
+IClientEntityList*  entity_list   = nullptr;
 IVEngineClient*     csgo_engine      = nullptr;
 CPrediction*        g_pPrediction   = nullptr;
 IGameMovement*      g_pMovement     = nullptr;
 IMoveHelper*        g_pMoveHelper   = nullptr;
-CGlobalVarsBase*    g_pGlobalVars   = nullptr;
+CGlobalVarsBase*    globalvars   = nullptr;
 IGameEventManager*  g_pEventManager = nullptr;
 ISurface*           csgo_surface = nullptr;
 IEngineTrace*       g_pTrace        = nullptr;
 IPhysicsSurfaceProps* csgo_surfaceData = nullptr;
 ICVar*              g_pCvar			= nullptr;
 IPanel*				g_pPanel		= nullptr;
-IVModelInfo*		g_pModelInfo	= nullptr;
+IVModelInfo*		model_info	= nullptr;
 CModelRender*       g_pModelRender  = nullptr;
 IMaterialSystem*    g_pMaterialSys  = nullptr;
 IVRenderView*       g_pRenderView   = nullptr;
@@ -95,8 +95,8 @@ namespace interfaces
     {
         g_pClientDll    = FindClass<IBaseClientDLL>("client.dll", "VClient");
         g_pClientMode   = **reinterpret_cast<IClientMode***>    ((*reinterpret_cast<uintptr_t**>(g_pClientDll))[10] + 0x5u);  
-        g_pGlobalVars   = **reinterpret_cast<CGlobalVarsBase***>((*reinterpret_cast<uintptr_t**>(g_pClientDll))[11]  + 10); 
-        g_pEntityList   = FindClass<IClientEntityList>("client.dll", "VClientEntityList");
+        globalvars   = **reinterpret_cast<CGlobalVarsBase***>((*reinterpret_cast<uintptr_t**>(g_pClientDll))[11]  + 10); 
+        entity_list   = FindClass<IClientEntityList>("client.dll", "VClientEntityList");
         csgo_engine       = FindClass<IVEngineClient>("engine.dll", "VEngineClient");
         g_pPrediction   = FindClass<CPrediction>("client.dll", "VClientPrediction");
         g_pMovement     = FindClass<IGameMovement>("client.dll", "GameMovement");
@@ -107,7 +107,7 @@ namespace interfaces
 		csgo_surfaceData  = FindClass<IPhysicsSurfaceProps>("vphysics.dll", "VPhysicsSurfaceProps");
 		g_pCvar         = FindClass<ICVar>("vstdlib.dll", "VEngineCvar");
 		g_pPanel		= FindClass<IPanel>("vgui2.dll", "VGUI_Panel");
-		g_pModelInfo    = FindClass<IVModelInfo>("engine.dll", "VModelInfoClient");
+		model_info    = FindClass<IVModelInfo>("engine.dll", "VModelInfoClient");
 		g_pModelRender  = FindClass<CModelRender>("engine.dll", "VEngineModel");
 		g_pMaterialSys  = FindClass<IMaterialSystem>("materialsystem.dll", "VMaterialSystem");
 		g_pRenderView   = FindClass<IVRenderView>("engine.dll", "VEngineRenderView");

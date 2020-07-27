@@ -13,7 +13,7 @@ class IMoveHelper
 public:
     void SetHost(C_BaseEntity* host)
     {
-        return Utils::CallVFunc<1, void>(this, host);
+        return Utils::call_vfunc<1, void>(this, host);
     }
 };
 extern IMoveHelper* g_pMoveHelper;

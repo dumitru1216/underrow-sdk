@@ -25,8 +25,9 @@ namespace csgo
 
 	/* other */
     std::uintptr_t uRandomSeed  = NULL;
+	in_use backup = in_use{ };
 
 	/* fonts */
-	DWORD courier_new;
-	DWORD tahoma;
+	DWORD esp_font;
+	DWORD health_bar_font;
 }

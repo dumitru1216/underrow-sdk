@@ -8,7 +8,7 @@ public:
 	const char *GetName(unsigned int vguiPanel)
 	{
 		typedef const char*(__thiscall* Fn)(IPanel*, unsigned int);
-		return Utils::GetVFunc<Fn>(this, 36)(this, vguiPanel);
+		return Utils::get_vfunc<Fn>(this, 36)(this, vguiPanel);
 	}
 };
 extern IPanel* g_pPanel;

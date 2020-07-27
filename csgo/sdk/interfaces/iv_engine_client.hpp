@@ -124,8 +124,8 @@ public:
     virtual void                  Key_SetBinding(int, char const*) = 0;
     virtual void                  StartKeyTrapMode(void) = 0;
     virtual bool                  CheckDoneKeyTrapping(int &code) = 0;
-    virtual bool                  IsInGame(void) = 0;
-    virtual bool                  IsConnected(void) = 0;
+    virtual bool                  is_in_game(void) = 0;
+    virtual bool                  is_connected(void) = 0;
     virtual bool                  IsDrawingLoadingImage(void) = 0;
     virtual void                  HideLoadingPlaque(void) = 0;
     virtual void                  Con_NPrintf(int pos, const char *fmt, ...) = 0; // 30

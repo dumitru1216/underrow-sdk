@@ -43,7 +43,7 @@ namespace function {
 				ImGui::EndChild( );
 				ImGui::SameLine( );
 				ImGui::BeginChild( "###name", ImVec2( 0, 30 ), true, ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse ); {
-					ImGui::Text( "underrow | beta 0.06" );
+					ImGui::Text( "underrow | beta 0.08" );
 				}
 				ImGui::EndChild( );
 
@@ -97,7 +97,14 @@ namespace function {
 					case 2: {
 						/* doing the 2 childs where will be features */
 						ImGui::BeginChild( "###9", ImVec2( 290, 380 / 2 ), true ); {
-
+							ImGui::Checkbox( "enable esp", &variable.Config.enable_esp );
+							ImGui::Checkbox( "dormancy esp", &variable.Config.dormancy_esp );
+							ImGui::Checkbox( "draw box", &variable.Config.box_esp );
+							ImGui::Checkbox( "draw health", &variable.Config.health_bar );
+							ImGui::Checkbox( "draw name", &variable.Config.name_esp );
+							ImGui::Checkbox( "draw weapon", &variable.Config.weapon_name );
+							ImGui::Checkbox( "draw flags", &variable.Config.flags_esp );
+							ImGui::Checkbox( "draw skeleton", &variable.Config.skeleton_esp );
 						}
 						ImGui::EndChild( );
 						ImGui::SameLine( );
@@ -164,7 +171,7 @@ namespace function {
 					} break;
 					case 5: {
 						/* doing the 2 childs where will be features */
-						ImGui::BeginChild( "###21", ImVec2( 290, 380 / 2 ), true ); {
+						ImGui::BeginChild( "###21", ImVec2( 285, 0 ), true ); {
 							constexpr auto& config_items = variable.get_configs( );
 							static int current_config = -1;
 
@@ -227,22 +234,6 @@ namespace function {
 								}
 						}
 						ImGui::EndChild( );
-						ImGui::SameLine( );
-						ImGui::BeginChild( "###22", ImVec2( 0, 380 / 2 ), true ); {
-
-						}
-						ImGui::EndChild( );
-						ImGui::SetCursorPosY( 380 / 2 + 50 );
-						ImGui::BeginChild( "###23", ImVec2( 290, 0 ), true  ); {
-
-						}
-						ImGui::EndChild( );
-						ImGui::SameLine( );
-						ImGui::BeginChild( "###24", ImVec2( 0, 0 ), true ); {
-
-						}
-						ImGui::EndChild( );
-
 					} break;
 				}
 

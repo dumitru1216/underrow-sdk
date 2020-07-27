@@ -475,37 +475,37 @@ public:
 	IMaterial * FindMaterial(char const* pMaterialName, const char *pTextureGroupName, bool complain = true, const char *pComplainPrefix = NULL)
 	{
 		typedef IMaterial*(__thiscall* Fn)(PVOID, char const*, char const*, bool, char const*);
-		return Utils::GetVFunc< Fn >(this, 84)(this, pMaterialName, pTextureGroupName, complain, pComplainPrefix);
+		return Utils::get_vfunc< Fn >(this, 84)(this, pMaterialName, pTextureGroupName, complain, pComplainPrefix);
 	}
 
 	IMaterial*	CreateMaterial(const char *pMaterialName, KeyValues *pVMTKeyValues)
 	{
 		typedef IMaterial* (__thiscall* Fn)(PVOID, const char *, KeyValues*);
-		return Utils::GetVFunc<Fn>(this, 83)(this, pMaterialName, pVMTKeyValues);
+		return Utils::get_vfunc<Fn>(this, 83)(this, pMaterialName, pVMTKeyValues);
 	}
 
 	MaterialHandle_t FirstMaterial()
 	{
 		typedef MaterialHandle_t(__thiscall* Fn)(void*);
-		return Utils::GetVFunc<Fn>(this, 86)(this);
+		return Utils::get_vfunc<Fn>(this, 86)(this);
 	}
 
 	MaterialHandle_t NextMaterial(MaterialHandle_t h)
 	{
 		typedef MaterialHandle_t(__thiscall* Fn)(void*, MaterialHandle_t);
-		return Utils::GetVFunc<Fn>(this, 87)(this, h);
+		return Utils::get_vfunc<Fn>(this, 87)(this, h);
 	}
 
 	MaterialHandle_t InvalidMaterial()
 	{
 		typedef MaterialHandle_t(__thiscall* Fn)(void*);
-		return Utils::GetVFunc<Fn>(this, 88)(this);
+		return Utils::get_vfunc<Fn>(this, 88)(this);
 	}
 
 	IMaterial* GetMaterial(MaterialHandle_t h)
 	{
 		typedef IMaterial*(__thiscall* Fn)(void*, MaterialHandle_t);
-		return Utils::GetVFunc<Fn>(this, 89)(this, h);
+		return Utils::get_vfunc<Fn>(this, 89)(this, h);
 	}
 
 };

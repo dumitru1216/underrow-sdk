@@ -14,14 +14,14 @@ class Utils
 {
 public:
     template<unsigned int IIdx, typename TRet, typename ... TArgs>
-    static auto CallVFunc(void* thisptr, TArgs ... argList) -> TRet
+    static auto call_vfunc(void* thisptr, TArgs ... argList) -> TRet
     {
         using Fn = TRet(__thiscall*)(void*, decltype(argList)...);
         return (*static_cast<Fn**>(thisptr))[IIdx](thisptr, argList...);
     }
 
 	template <typename t>
-	static t GetVFunc(void* class_pointer, size_t index) {
+	static t get_vfunc(void* class_pointer, size_t index) {
 		return (*(t**)class_pointer)[index];
 	}
 
@@ -143,26 +143,26 @@ public:
     *   @origin: 3D coordinates to be converted
     *   @screen: Viewport coordinates to which we will convert
     */
-    static bool WorldToScreen(const Vector &origin, Vector2D &screen)
+    static bool world_to_screen( const Vector& origin, Vector& screen )
     {
-        const auto screenTransform = [&origin, &screen]() -> bool
+        const auto screenTransform = [ &origin, &screen ]( ) -> bool
         {
             static std::uintptr_t pViewMatrix;
-            if (!pViewMatrix)
+            if ( !pViewMatrix )
             {
-                pViewMatrix = static_cast<std::uintptr_t>(Utils::FindSignature("client.dll", "0F 10 05 ? ? ? ? 8D 85 ? ? ? ? B9"));
+                pViewMatrix = static_cast< std::uintptr_t >( Utils::FindSignature( "client.dll", "0F 10 05 ? ? ? ? 8D 85 ? ? ? ? B9" ) );
                 pViewMatrix += 3;
-                pViewMatrix = *reinterpret_cast<std::uintptr_t*>(pViewMatrix);
+                pViewMatrix = *reinterpret_cast< std::uintptr_t* >( pViewMatrix );
                 pViewMatrix += 176;
             }
 
-            const VMatrix& w2sMatrix = *reinterpret_cast<VMatrix*>(pViewMatrix);
-            screen.x = w2sMatrix.m[0][0] * origin.x + w2sMatrix.m[0][1] * origin.y + w2sMatrix.m[0][2] * origin.z + w2sMatrix.m[0][3];
-            screen.y = w2sMatrix.m[1][0] * origin.x + w2sMatrix.m[1][1] * origin.y + w2sMatrix.m[1][2] * origin.z + w2sMatrix.m[1][3];
+            const VMatrix& w2sMatrix = *reinterpret_cast< VMatrix* >( pViewMatrix );
+            screen.x = w2sMatrix.m[ 0 ][ 0 ] * origin.x + w2sMatrix.m[ 0 ][ 1 ] * origin.y + w2sMatrix.m[ 0 ][ 2 ] * origin.z + w2sMatrix.m[ 0 ][ 3 ];
+            screen.y = w2sMatrix.m[ 1 ][ 0 ] * origin.x + w2sMatrix.m[ 1 ][ 1 ] * origin.y + w2sMatrix.m[ 1 ][ 2 ] * origin.z + w2sMatrix.m[ 1 ][ 3 ];
 
-            float w = w2sMatrix.m[3][0] * origin.x + w2sMatrix.m[3][1] * origin.y + w2sMatrix.m[3][2] * origin.z + w2sMatrix.m[3][3];
+            float w = w2sMatrix.m[ 3 ][ 0 ] * origin.x + w2sMatrix.m[ 3 ][ 1 ] * origin.y + w2sMatrix.m[ 3 ][ 2 ] * origin.z + w2sMatrix.m[ 3 ][ 3 ];
 
-            if (w < 0.001f)
+            if ( w < 0.001f )
             {
                 screen.x *= 100000;
                 screen.y *= 100000;
@@ -176,16 +176,15 @@ public:
             return false;
         };
 
-        if (!screenTransform())
+        if ( !screenTransform( ) )
         {
             int iScreenWidth, iScreenHeight;
-            csgo_engine->get_screen_size(iScreenWidth, iScreenHeight);
+            csgo_engine->get_screen_size( iScreenWidth, iScreenHeight );
 
-            screen.x = (iScreenWidth * 0.5f) + (screen.x * iScreenWidth) * 0.5f;
-            screen.y = (iScreenHeight * 0.5f) - (screen.y * iScreenHeight) * 0.5f;
+            screen.x = ( iScreenWidth * 0.5f ) + ( screen.x * iScreenWidth ) * 0.5f;
+            screen.y = ( iScreenHeight * 0.5f ) - ( screen.y * iScreenHeight ) * 0.5f;
 
             return true;
         }
         return false;
-    }
-};
+    }};

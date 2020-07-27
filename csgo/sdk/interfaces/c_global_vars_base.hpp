@@ -26,4 +26,4 @@ private:
     //  all of the entities from forcing a new PackedEntity on the same tick (i.e., prevents them from getting lockstepped on this)
     int       nTimestampRandomizeWindow;
 };
-extern CGlobalVarsBase* g_pGlobalVars;
+extern CGlobalVarsBase* globalvars;

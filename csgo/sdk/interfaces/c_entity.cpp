@@ -4,9 +4,9 @@
 #include "..\../utils\globals\globals.hpp"
 #include "..\../utils\other\sdk_math.hpp"
 
-Vector C_BaseEntity::GetHitboxPosition(int Hitbox, matrix3x4_t *Matrix, float *Radius)
+Vector C_BaseEntity::get_hitbox_position(int Hitbox, matrix3x4_t *Matrix, float *Radius)
 {
-	studiohdr_t* hdr = g_pModelInfo->GetStudiomodel(this->GetModel());
+	studiohdr_t* hdr = model_info->GetStudiomodel(this->GetModel());
 	mstudiohitboxset_t* set = hdr->GetHitboxSet(0);
 	mstudiobbox_t* hitbox = set->GetHitbox(Hitbox);
 
@@ -25,9 +25,9 @@ Vector C_BaseEntity::GetHitboxPosition(int Hitbox, matrix3x4_t *Matrix, float *R
 	return Vector(0, 0, 0);
 }
 
-Vector C_BaseEntity::GetHitboxPosition(int Hitbox, matrix3x4_t *Matrix) // any public source
+Vector C_BaseEntity::get_hitbox_position(int Hitbox, matrix3x4_t *Matrix) // any public source
 {
-	studiohdr_t* hdr = g_pModelInfo->GetStudiomodel(this->GetModel());
+	studiohdr_t* hdr = model_info->GetStudiomodel(this->GetModel());
 	mstudiohitboxset_t* set = hdr->GetHitboxSet(0);
 	mstudiobbox_t* hitbox = set->GetHitbox(Hitbox);
 
@@ -44,20 +44,20 @@ Vector C_BaseEntity::GetHitboxPosition(int Hitbox, matrix3x4_t *Matrix) // any p
 	return Vector(0, 0, 0);
 }
 
-void C_BaseEntity::FixSetupBones(matrix3x4_t *Matrix)
+void C_BaseEntity::fix_setup_bones(matrix3x4_t *Matrix)
 {
 	int Backup = *(int*)((uintptr_t)this + 0x274);
 	*(int*)((uintptr_t)this + 0x274) = 0;
-	Vector absOriginBackupLocal = this->GetAbsOrigin();
-	this->SetAbsOrigin(this->GetOrigin());
-	this->SetupBones(Matrix, 128, 0x00000100, g_pGlobalVars->curtime);
-	this->SetAbsOrigin(absOriginBackupLocal);
+	Vector absOriginBackupLocal = this->get_abs_origin();
+	this->set_abs_origin(this->get_origin());
+	this->SetupBones(Matrix, 128, 0x00000100, globalvars->curtime);
+	this->set_abs_origin(absOriginBackupLocal);
 	*(int*)((uintptr_t)this + 0x274) = Backup;
 }
 
 //SanekGame https://www.unknowncheats.me/forum/1798568-post2.html
 
-void C_BaseEntity::SetAbsAngles(Vector angles)
+void C_BaseEntity::set_abs_angles(Vector angles)
 {
 	using Fn = void(__thiscall*)(C_BaseEntity*, const Vector& angles);
 	static Fn AbsAngles = (Fn)(Utils::FindPattern("client.dll", (BYTE*)"\x55\x8B\xEC\x83\xE4\xF8\x83\xEC\x64\x53\x56\x57\x8B\xF1\xE8", "xxxxxxxxxxxxxxx"));
@@ -65,7 +65,7 @@ void C_BaseEntity::SetAbsAngles(Vector angles)
 	AbsAngles(this, angles);
 }
 
-void C_BaseEntity::SetAbsOrigin(Vector origin)
+void C_BaseEntity::set_abs_origin(Vector origin)
 {
 	using Fn = void(__thiscall*)(void*, const Vector &origin);
 	static Fn AbsOrigin = (Fn)Utils::FindSignature("client.dll", "55 8B EC 83 E4 F8 51 53 56 57 8B F1 E8");
@@ -73,7 +73,7 @@ void C_BaseEntity::SetAbsOrigin(Vector origin)
 	AbsOrigin(this, origin);
 }
 
-void C_BaseEntity::SetAbsVelocity(Vector velocity) // i dont remember
+void C_BaseEntity::set_abs_velocity(Vector velocity) // i dont remember
 {
 	using Fn = void(__thiscall*)(void*, const Vector &velocity);
 	static Fn AbsVelocity = (Fn)Utils::FindSignature("client.dll", "55 8B EC 83 E4 F8 83 EC 0C 53 56 57 8B 7D 08 8B F1 F3");
@@ -81,19 +81,19 @@ void C_BaseEntity::SetAbsVelocity(Vector velocity) // i dont remember
 	AbsVelocity(this, velocity);
 }
 
-bool C_BaseEntity::IsKnifeorNade()
+bool C_BaseEntity::is_knife_or_nade()
 {
 	if (!this)
 		return false;
-	if (!this->IsAlive())
+	if (!this->is_alive())
 		return false;
 
-	C_BaseCombatWeapon *pWeapon = (C_BaseCombatWeapon*)this->GetActiveWeapon();
+	C_BaseCombatWeapon *pWeapon = (C_BaseCombatWeapon*)this->get_active_weapon();
 
 	if (!pWeapon)
 		return false;
 
-	std::string WeaponName = pWeapon->GetName();
+	std::string WeaponName = pWeapon->get_name();
 
 	if (WeaponName == "weapon_knife")
 		return true;
@@ -113,21 +113,21 @@ bool C_BaseEntity::IsKnifeorNade()
 	return false;
 }
 
-float C_BaseEntity::FireRate()
+float C_BaseEntity::fire_rate()
 {
 	if (!this)
 		return 0.f;
-	if (!this->IsAlive())
+	if (!this->is_alive())
 		return 0.f;
-	if (this->IsKnifeorNade())
+	if (this->is_knife_or_nade())
 		return 0.f;
 
-	C_BaseCombatWeapon *pWeapon = (C_BaseCombatWeapon*)this->GetActiveWeapon();
+	C_BaseCombatWeapon *pWeapon = (C_BaseCombatWeapon*)this->get_active_weapon();
 
 	if (!pWeapon)
 		return false;
 
-	std::string WeaponName = pWeapon->GetName();
+	std::string WeaponName = pWeapon->get_name();
 
 	if (WeaponName == "weapon_glock")
 		return 0.15f;
@@ -192,7 +192,7 @@ float C_BaseEntity::FireRate()
 	
 }
 
-bool C_BaseEntity::IsEnemy()
+bool C_BaseEntity::is_enemy()
 {
-	return this->GetTeam() != csgo::m_local->GetTeam();
+	return this->get_team() != csgo::m_local->get_team();
 }

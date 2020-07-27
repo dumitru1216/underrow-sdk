@@ -6,12 +6,12 @@ namespace function {
 
 	void helpers::create_fonts( ) {
 		/* create fonts */
-		csgo::courier_new = csgo_surface->FontCreate( );
-		csgo::tahoma = csgo_surface->FontCreate( );
+		csgo::esp_font = csgo_surface->FontCreate( );
+		csgo::health_bar_font = csgo_surface->FontCreate( );
 
 		/* setup font */
-		csgo_surface->SetFontGlyphSet( csgo::courier_new, "Courier New", 14, 300, 0, 0, font_flag_outline );
-		csgo_surface->SetFontGlyphSet( csgo::tahoma, "Tahoma", 12, 700, 0, 0, font_flag_antialias );
+		csgo_surface->SetFontGlyphSet( csgo::esp_font, "Verdana", 12, 550, 0, 0, font_flag_dropshadow | font_flag_antialias );
+		csgo_surface->SetFontGlyphSet( csgo::health_bar_font, "Small Fonts", 8, 400, 0, 0, font_flag_outline );
 
 	}
 }

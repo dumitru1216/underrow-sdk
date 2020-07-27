@@ -11,7 +11,7 @@ void Event::FireGameEvent( IGameEvent* event )
 	if ( !csgo::m_local )
 		return;
 
-	auto attacker = g_pEntityList->GetClientEntity( csgo_engine->GetPlayerForUserID( event->GetInt( "attacker" ) ) );
+	auto attacker = entity_list->GetClientEntity( csgo_engine->GetPlayerForUserID( event->GetInt( "attacker" ) ) );
 	if ( !attacker )
 		return;
 

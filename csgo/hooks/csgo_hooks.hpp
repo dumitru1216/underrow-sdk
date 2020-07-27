@@ -10,6 +10,7 @@
 #include "..\sdk\interfaces\iv_model_info.hpp"
 #include "..\sdk\interfaces\i_material.hpp"
 #include "..\sdk\interfaces\iv_render_view.hpp"
+#include "../features/includes.hpp"
 #include <assert.h>
 #include <d3d9.h>
 #include <d3dx9.h>
